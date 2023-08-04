@@ -1,13 +1,20 @@
-import { Button  } from 'react-bootstrap';
+import { styled } from "styled-components"
+import Header from "./components/Header"
+import { colors } from "./assets/colors"
+
 
 function App() {
 
   return (
-    <>
-    <h1>Hello World, Vite + React + Bootstrap</h1>
-    <Button>Click me</Button>
-    </>
+    <Container className="container-fluid p-0">
+      <Header />
+    </Container>
   )
 }
 
 export default App
+
+const Container = styled.div`
+min-height: 100vh;
+background-color: ${colors.white};
+`
