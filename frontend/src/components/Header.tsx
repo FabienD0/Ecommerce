@@ -10,8 +10,8 @@ import { styled } from "styled-components"
 const Header = () => {
     return (
 <>
-<Navbar  expand="lg" className="navbar border-bottom bg-transparent mb-3 py-3">
-          <Container>
+<StyledNavBar expand="lg" className="navbar bg-transparent mb-3 py-3">
+          <StyledContainer fluid>
             {/* Logo */}
             <Navbar.Brand href="#" className="navbar-brand fs-4">Pulse Peak</Navbar.Brand>
             {/* Toggle Button */}
@@ -61,13 +61,21 @@ const Header = () => {
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
+          </StyledContainer>
+        </StyledNavBar>
     </>
     )
 }
 
 export default Header
+
+const StyledNavBar = styled(Navbar)`
+  box-shadow: 0 4px 5px -5px rgb(0 0 0 / 23%);
+`
+
+const StyledContainer = styled(Container)`
+width: 80rem;
+`
 
 const SearchBar = styled(Form.Control)`
   border: 1px solid #9d9d9d;
