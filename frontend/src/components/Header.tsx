@@ -10,7 +10,7 @@ import { styled } from "styled-components"
 const Header = () => {
     return (
 <>
-<Navbar  expand="lg" className="navbar border-bottom bg-transparent mb-3">
+<Navbar  expand="lg" className="navbar border-bottom bg-transparent mb-3 py-3">
           <Container>
             {/* Logo */}
             <Navbar.Brand href="#" className="navbar-brand fs-4">Pulse Peak</Navbar.Brand>
@@ -31,14 +31,14 @@ const Header = () => {
               </Offcanvas.Header>
               {/* SideBar Body */}
               <Offcanvas.Body>
-                  {/* Searchbar */}
-                  <Form className="d-flex flex-grow-1 justify-content-center">
-                  <SearchBar
-                    type="search"
-                    placeholder="Search"
-                    className="me-2 w-50"
-                    aria-label="Search"
-                  />
+              {/* Searchbar */}
+              <Form className="d-flex flex-grow-1 justify-content-center">
+              <SearchBar
+                type="search"
+                placeholder="Search"
+                className="me-2 w-50"
+                aria-label="Search"
+                />
                 </Form>
                 <Nav className="justify-content-center flex-grow-2 pe-3 mx-2 align-items-center fs-5 ">
                   <Nav.Link href="#action1" className="mx-2">Home</Nav.Link>
@@ -70,8 +70,6 @@ const Header = () => {
 export default Header
 
 const SearchBar = styled(Form.Control)`
-  height: 2.5rem;
-  width: 100%;
   border: 1px solid #9d9d9d;
   border-radius: 10px;
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg");
@@ -81,7 +79,9 @@ const SearchBar = styled(Form.Control)`
   padding-left: 3rem;
   font-size: 18px;
 
-  :focus {
+  &:focus {
     outline: 1px solid #b1b2ff;
+    border-color: #b1b2ff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 3px #b1b2ff;
   }
 `
