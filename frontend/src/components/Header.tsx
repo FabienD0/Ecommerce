@@ -5,12 +5,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { styled } from "styled-components"
+import { colors } from '../assets/colors';
 
 
 const Header = () => {
     return (
 <>
-<StyledNavBar expand="lg" className="navbar bg-transparent mb-3 py-3">
+<StyledNavBar expand="lg" className="navbar mb-3 py-3" fixed='top'>
           <StyledContainer fluid>
             {/* Logo */}
             <Navbar.Brand href="#" className="navbar-brand fs-4">Pulse Peak</Navbar.Brand>
@@ -71,6 +72,7 @@ export default Header
 
 const StyledNavBar = styled(Navbar)`
   box-shadow: 0 4px 5px -5px rgb(0 0 0 / 23%);
+  background-color: ${colors.white};
 `
 
 const StyledContainer = styled(Container)`

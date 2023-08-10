@@ -42,6 +42,7 @@ const SectionOneHomePage = () => {
   `;
   
   const Category = styled.p`
+    margin: 0;
     position: absolute;
     bottom: 20px;
     left: 20px;
