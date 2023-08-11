@@ -10,6 +10,8 @@ dotenv.config();
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
 
+console.log("Test")
+
 app.use(function (req:Request, res:Response, next:NextFunction) {
     res.header(
       "Access-Control-Allow-Methods",
