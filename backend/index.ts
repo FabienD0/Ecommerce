@@ -4,13 +4,15 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 
 const morgan = require("morgan");
 const dotenv = require('dotenv');
-
 dotenv.config();
+
+
+const {
+    test
+} = require("./mysqltest")
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
-
-console.log("Test")
 
 app.use(function (req:Request, res:Response, next:NextFunction) {
     res.header(
@@ -31,10 +33,10 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
   .use("/", express.static(__dirname + "/"))
 
   //REST Endpoints
-  app.get("/helloWorld",(req:Request,res:Response) => {
-    res.send("Hello World with Typescript and nodeJs")
-    console.log("HERE")
+  app.get("/",(res,req)=> {
+    req.send("Home");
   })
+  app.get("/test",test)
 
   app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
