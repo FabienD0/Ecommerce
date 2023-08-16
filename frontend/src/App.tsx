@@ -4,14 +4,14 @@ import GlobalStyles from "./GlobalStyles"
 import Header from "./components/Header"
 import Homepage from "./pages/Homepage"
 import Footer from "./components/Footer"
-import { useDispatch } from "react-redux"
 import { useEffect } from "react";
 import { addItem, getItems } from "./redux/features/itemsSlice"
+import { useAppDispatch } from "./redux/app/hooks"
 
 
 function App() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   // useEffect(() => {
   //   dispatch(addItem());
