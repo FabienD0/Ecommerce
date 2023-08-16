@@ -4,9 +4,23 @@ import GlobalStyles from "./GlobalStyles"
 import Header from "./components/Header"
 import Homepage from "./pages/Homepage"
 import Footer from "./components/Footer"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react";
+import { addItem, getItems } from "./redux/features/itemsSlice"
 
 
 function App() {
+
+  const dispatch = useDispatch();
+  
+  // useEffect(() => {
+  //   dispatch(addItem());
+  // },[])
+
+  useEffect(() => {
+    dispatch(getItems());
+}, []);
+
 
   return (
     <BrowserRouter>
