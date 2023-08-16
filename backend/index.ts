@@ -36,7 +36,7 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
   app.get("/",(res,req)=> {
     req.send("Home");
   })
-  app.get("/test",test)
+  app.get("/getAllItems",test)
 
   app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
