@@ -5,21 +5,17 @@ import Header from "./components/Header"
 import Homepage from "./pages/Homepage"
 import Footer from "./components/Footer"
 import { useEffect } from "react";
-import { addItem, getItems } from "./redux/features/itemsSlice"
+import {  getItems } from "./redux/features/itemsSlice"
 import { useAppDispatch } from "./redux/app/hooks"
 
 
 function App() {
 
-  const dispatch = useAppDispatch();
+//   const dispatch = useAppDispatch();
   
-  // useEffect(() => {
-  //   dispatch(addItem());
-  // },[])
-
-  useEffect(() => {
-    dispatch(getItems());
-}, []);
+//   useEffect(() => {
+//     dispatch(getItems());
+// }, []);
 
 
   return (

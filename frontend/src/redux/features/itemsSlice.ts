@@ -5,20 +5,13 @@ const initialState = {
     isLoading: true,
 }
 
-// export const getItems = createAsyncThunk("items/getItems", async () => {
-//     const response = await fetch("/getAllItems");
-//     const data = await response.json();
-//     return data.data;
-// });
-
 export const getItems = createAsyncThunk(
   '/getAllItems',
   async () => {
     const response = await fetch("http://localhost:1111/getAllItems");
     const data = await response.json();
-    // The value we return becomes the `fulfilled` action payload
-    console.log(data)
-    return data.data;
+    // console.log(data.rows)
+    return data.rows;
   }
 );
 
