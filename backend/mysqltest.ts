@@ -7,7 +7,7 @@ import { RowDataPacket } from "mysql2";
 const test = async (req: Request, res: Response) => {
   try {
     const connection = await mysql.createConnection(process.env.DATABASE_URL);
-    connection.query('SELECT * FROM companies LIMIT 20', (_err:Error, rows:RowDataPacket[]) => {
+    connection.query('SELECT * FROM items', (_err:Error, rows:RowDataPacket[]) => {
       if(_err) {
         res.status(500).json({ status: 500, message: "error" });
       } else { 
