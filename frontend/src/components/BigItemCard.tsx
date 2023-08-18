@@ -13,9 +13,11 @@ const BigItemCard = ({product}:any) => {
         return displayName;
     }
 
+    // style={{width: "65%",height: "auto"}}
+
 return (
     <div className="card product-card card-static px-3 justify-content-center">
-      <img className="img-fluid mb-3 mx-auto p-4" style={{width: "65%",height: "auto"}}
+      <img className="img-fluid mb-3 mx-auto p-4" 
         src={product.imageSrc}
         alt={product.name}
         // outOfStock={product.numInStock}
