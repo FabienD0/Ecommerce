@@ -2,15 +2,16 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks"
 import { getItems } from "../../redux/features/itemsSlice"
 import { Item } from "../utils/types"
+import BigItemCard from "../BigItemCard"
 
 const SectionTwoHomePage = () => {
 
     const dispatch = useAppDispatch();
     const { items } = useAppSelector((store) => store.items)
     
-    const [filteredProducts,setFilteredProducts] = useState([]);
+    const [filteredProducts,setFilteredProducts] = useState<Item[]>([]);
 
-    //Get All Items
+    //Get All Items, then filter
     useEffect(() => {
     dispatch(getItems());
     const filteredProduct = items.filter(
@@ -27,12 +28,21 @@ const SectionTwoHomePage = () => {
       setFilteredProducts(filteredProduct);
 },[])
 
-console.log(filteredProducts)
+
+if (filteredProducts.length === 0) {
+    return <p>Loading..</p>
+}
 
     
     return (
         <>
         <h1>Latest Products</h1>
+        <div className="d-flex flex-row gap-3 card-goup">
+            <BigItemCard product={filteredProducts[0]} />
+            <BigItemCard product={filteredProducts[0]} />
+            <BigItemCard product={filteredProducts[0]} />
+            <BigItemCard product={filteredProducts[0]} />
+        </div>
         </>
     )
 
