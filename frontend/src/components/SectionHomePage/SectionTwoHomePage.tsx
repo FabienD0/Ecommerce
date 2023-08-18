@@ -6,6 +6,7 @@ import BigItemCard from "../BigItemCard"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { styled } from "styled-components"
 
 const SectionTwoHomePage = () => {
 
@@ -40,7 +41,10 @@ const settings = {
   infinite: true,
   speed: 500,
   slidesToShow: 3,
-  slidesToScroll: 1,
+  slidesToScroll: 2,
+  // nextArrow: <SampleNextArrow />,
+  // prevArrow: <SamplePrevArrow />
+
   responsive: [{
     breakpoint: 600,
     settings: {
@@ -90,11 +94,10 @@ if (filteredProducts.length === 0) {
             </div>
       </Carousel.Item>
     </Carousel> */}
-      <Slider {...settings} adaptiveHeight={true}>
+      <Slider {...settings} adaptiveHeight={true} className="">
         {filteredProducts.map((product) => {
-          return <div className="container">
-            <BigItemCard key={product.id} product={product} />
-          </div>
+            return <BigItemCard key={product.id} product={product} />
+
         })}
     </Slider>
     </div>

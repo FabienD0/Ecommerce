@@ -16,7 +16,7 @@ const BigItemCard = ({product}:any) => {
     // style={{width: "65%",height: "auto"}}
 
 return (
-    <div className="card product-card card-static px-3 justify-content-center">
+    <div className="card product-card px-3 mr-5" style={{width: "95%"}}>
       <img className="img-fluid mb-3 mx-auto p-4" 
         src={product.imageSrc}
         alt={product.name}
