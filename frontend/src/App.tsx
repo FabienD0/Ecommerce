@@ -9,7 +9,10 @@ import {  getItems } from "./redux/features/itemsSlice"
 import { useAppDispatch } from "./redux/app/hooks"
 
 
-function App() {
+export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
+
+const App = () => {
+
 
 //   const dispatch = useAppDispatch();
   

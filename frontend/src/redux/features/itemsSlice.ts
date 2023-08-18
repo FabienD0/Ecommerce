@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { URL } from "../../App";
 
 const initialState = {
     items: [],
@@ -8,7 +9,7 @@ const initialState = {
 export const getItems = createAsyncThunk(
   '/getAllItems',
   async () => {
-    const response = await fetch("http://localhost:1111/getAllItems");
+    const response = await fetch(`${URL}/getAllItems`);
     const data = await response.json();
     // console.log(data.rows)
     return data.rows;
