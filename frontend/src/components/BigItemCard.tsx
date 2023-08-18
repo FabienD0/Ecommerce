@@ -14,14 +14,14 @@ const BigItemCard = ({product}:any) => {
     }
 
 return (
-    <div className="card product-card card-static p-3">
-      <img className="img-fluid mb-2"
+    <div className="card product-card card-static px-3 justify-content-center">
+      <img className="img-fluid mb-3 mx-auto p-4" style={{width: "65%",height: "auto"}}
         src={product.imageSrc}
         alt={product.name}
         // outOfStock={product.numInStock}
       />
     <p className="card-subtitle mb-2 text-body-secondary">{product.category}</p>
-    <p className="fw-bold mb-2">{shortProductName(product.name)}</p>
+    <p className="fw-bold mb-3">{shortProductName(product.name)}</p>
     <p className="" style={{color: colors.purple}}>{product.price}</p>
     </div>
 )
