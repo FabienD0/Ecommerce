@@ -3,6 +3,7 @@ import { URL } from "../../App";
 
 const initialState = {
     items: [],
+    latestItems: [],
     isLoading: true,
 }
 
@@ -14,6 +15,16 @@ export const getItems = createAsyncThunk(
     return data.rows;
   }
 );
+
+export const getLatestItems = createAsyncThunk(
+  '/getLatestItems',
+  async () => {
+    const response = await fetch(`${URL}/getLatestItems`);
+    const data = await response.json();
+    return data.rows;
+  }
+);
+
 
 const itemsSlice = createSlice({
     name: "Items",
@@ -35,6 +46,16 @@ const itemsSlice = createSlice({
             state.items = action.payload;
           },
           [`${getItems.rejected}`]: (state) => {
+            state.isLoading = false;
+          },
+          [`${getLatestItems.pending}`]: (state) => {
+            state.isLoading = true;
+          },
+          [`${getLatestItems.fulfilled}`]: (state, action) => {
+            state.isLoading = false;
+            state.latestItems = action.payload;
+          },
+          [`${getLatestItems.rejected}`]: (state) => {
             state.isLoading = false;
           },
     }

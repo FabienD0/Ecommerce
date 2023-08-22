@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks"
-import { getItems } from "../../redux/features/itemsSlice"
+import { getLatestItems } from "../../redux/features/itemsSlice"
 import { Item } from "../utils/types"
 import BigItemCard from "../BigItemCard"
 import "slick-carousel/slick/slick.css";
@@ -11,37 +11,28 @@ import { styled } from "styled-components"
 const SectionTwoHomePage = () => {
 
     const dispatch = useAppDispatch();
-    const { items } = useAppSelector((store) => store.items)
+    const { latestItems } = useAppSelector((store) => store.items)
     
     const [filteredProducts,setFilteredProducts] = useState<Item[]>([]);
 
     //Get All Items
     useEffect(() => {
-    dispatch(getItems());
+    dispatch(getLatestItems());
     },[]);
 
-    //Filter Items for Latest
+    //Filter Items on state
     useEffect(() => {
-    const filteredProduct = items.filter(
-        (item: Item) =>
-          item.id === 6544 ||
-          item.id === 6552 ||
-          item.id === 6582 ||
-          item.id === 6627 ||
-          item.id === 6551 ||
-          item.id === 6727 ||
-          item.id === 6841 ||
-          item.id === 7000
-      );
-      setFilteredProducts(filteredProduct);
-},[items])
+      setFilteredProducts(latestItems);
+},[latestItems])
 
-const settings = {
+//Setting for the Carousel
+const settingsCarousel = {
   dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 3,
   slidesToScroll: 2,
+  arrows: false,
   // nextArrow: <SampleNextArrow />,
   // prevArrow: <SamplePrevArrow />
 
@@ -72,7 +63,7 @@ if (filteredProducts.length === 0) {
     
     return (
         <div>
-        <h1 className="mb-3">Latest Products</h1>
+        <SectionTitle className="mb-3">Latest Products</SectionTitle>
         <div className="container p-0">
         {/* <Carousel variant="dark" interval={null}>
       <Carousel.Item>
@@ -94,7 +85,7 @@ if (filteredProducts.length === 0) {
             </div>
       </Carousel.Item>
     </Carousel> */}
-      <Slider {...settings} adaptiveHeight={true} className="">
+      <Slider {...settingsCarousel} adaptiveHeight={true} className="">
         {filteredProducts.map((product) => {
             return <BigItemCard key={product.id} product={product} />
 
@@ -107,3 +98,12 @@ if (filteredProducts.length === 0) {
 }
 
 export default SectionTwoHomePage
+
+const SectionTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2e3659;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+`;
