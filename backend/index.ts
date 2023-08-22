@@ -8,7 +8,8 @@ dotenv.config();
 
 
 const {
-    test
+    test,
+    getLatestItems
 } = require("./mysqltest")
 
 const app: Express = express();
@@ -37,6 +38,8 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
     req.send("Home");
   })
   app.get("/getAllItems",test)
+  app.get("/getLatestItems",getLatestItems)
+
 
   app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
