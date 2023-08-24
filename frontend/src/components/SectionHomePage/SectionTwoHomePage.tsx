@@ -55,7 +55,6 @@ const settingsCarousel = {
 ]
 };
 
-
 //Loading State
 if (filteredProducts.length === 0) {
     return <p>Loading..</p>
@@ -65,26 +64,6 @@ if (filteredProducts.length === 0) {
         <div>
         <SectionTitle className="mb-3">Latest Products</SectionTitle>
         <div className="container p-0">
-        {/* <Carousel variant="dark" interval={null}>
-      <Carousel.Item>
-      <div className="d-flex flex-row gap-3 card-goup">
-      <BigItemCard product={filteredProducts[0]} />
-            <BigItemCard product={filteredProducts[1]} />
-            <BigItemCard product={filteredProducts[2]} />
-            <BigItemCard product={filteredProducts[3]} />
-            <BigItemCard product={filteredProducts[4]} />
-            </div>
-      </Carousel.Item>
-      <Carousel.Item>
-        <div className="d-flex flex-row gap-3 card-goup">
-      <BigItemCard product={filteredProducts[5]} />
-            <BigItemCard product={filteredProducts[6]} />
-            <BigItemCard product={filteredProducts[7]} />
-            <BigItemCard product={filteredProducts[7]} />
-            <BigItemCard product={filteredProducts[7]} />
-            </div>
-      </Carousel.Item>
-    </Carousel> */}
       <Slider {...settingsCarousel} adaptiveHeight={true} className="">
         {filteredProducts.map((product) => {
             return <BigItemCard key={product.id} product={product} />

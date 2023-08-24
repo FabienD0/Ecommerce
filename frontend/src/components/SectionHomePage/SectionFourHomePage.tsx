@@ -73,7 +73,7 @@ const SectionTitle = styled.h2`
   color: #2e3659;
   letter-spacing: 0.05em;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
 `;
 
 const ContainerBrand = styled.div`
