@@ -35,7 +35,7 @@ const settingsCarousel = {
   speed: 500,
   slidesToShow: 3,
   slidesToScroll: 2,
-  arrows: false,
+  arrows: true,
 
   responsive: [{
     breakpoint: 600,
@@ -45,14 +45,14 @@ const settingsCarousel = {
       initialSlide: 1
     }
   },
-  {
-    breakpoint: 600,
-    settings: {
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      initialSlide: 1
-    }
-  },
+  // {
+  //   breakpoint: 600,
+  //   settings: {
+  //     slidesToShow: 1,
+  //     slidesToScroll: 1,
+  //     initialSlide: 1
+  //   }
+  // },
 ]
 };
 
@@ -64,14 +64,14 @@ if (filteredProducts.length === 0) {
     return (
         <div>
         <SectionTitle className="mb-3">Latest Products</SectionTitle>
-        <div className="container p-0">
-      <Slider {...settingsCarousel} adaptiveHeight={true} className="">
+        <ContainerItemCard className="container p-0">
+      <StyledSlider {...settingsCarousel} adaptiveHeight={true}>
         {filteredProducts.map((product) => {
             return <BigItemCard key={product.id} product={product} />
 
         })}
-    </Slider>
-    </div>
+    </StyledSlider>
+    </ContainerItemCard>
         </div>
     )
 
@@ -87,3 +87,25 @@ const SectionTitle = styled.h2`
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
 `;
+
+const ContainerItemCard = styled.div`
+@media (max-width: 600px) {
+    width: 80vw !important;
+    /* width: 20rem !important; */
+  }
+`
+
+const StyledSlider = styled(Slider)`
+.slick-prev:before{
+  color: black;
+}
+.slick-next:before {
+  color: black;
+}
+.slick-track {
+  padding-left: 0.5rem;
+  @media (max-width: 600px) {
+    padding-left: 0.7rem;
+  }
+}
+`

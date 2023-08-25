@@ -38,6 +38,7 @@ position: relative;
 &:hover > button {
   opacity: 0.7;
 }
+
 `
 const ItemName = styled.p`
   max-width: 90%;
