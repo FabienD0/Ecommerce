@@ -16,10 +16,8 @@ const Header = () => {
 <StyledNavBar expand="lg" className="navbar mb-3 py-3" fixed='top'>
           <StyledContainer fluid className='p-0'>
             {/* Logo */}
-            <Navbar.Brand href="#" className="navbar-brand fs-4">
-              <Link to={"/"} style={{all:"unset", cursor:"pointer"}}>
+            <Navbar.Brand href="/" className="navbar-brand fs-4">
               <img className="w-50" src="/images/logo.png" alt='logo'/>
-              </Link>
             </Navbar.Brand>
             {/* Toggle Button */}
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} className="shadow-none border-0" />

@@ -1,8 +1,42 @@
 import { Card,Button,Container } from "react-bootstrap"
 import { styled } from "styled-components"
 import { colors } from "../assets/colors";
+import { useAppDispatch,useAppSelector } from "../redux/app/hooks";
+import { useEffect, useState } from "react"
+import { Item } from "../components/utils/types"
+import { getOneItem } from "../redux/features/itemsSlice";
+
 
 const ProductDetails = () => {
+
+const dispatch = useAppDispatch();
+const { oneItem } = useAppSelector((store) => store.items)
+
+const [item,setItem] = useState<Item>();
+
+    /* Get Latest Items */
+    useEffect(() => {
+      dispatch(getOneItem());
+      },[]);
+  
+      /* Put it in state */
+      useEffect(() => {
+        const [itemReturn] = oneItem
+        setItem(itemReturn);
+  },[oneItem])
+
+
+
+/* Loading State */
+if (!item) {
+  return (  
+<div>
+    <div className="d-flex justify-content-center align-items-center">
+    <div className="spinner-border" role="status"></div>
+    </div>
+</div> )
+}
+
 return (
     <StyledContainer className="d-flex flex-row p-0 m-0">
         <Card className="container">
@@ -12,15 +46,13 @@ return (
         </Card>
         <Card className="container" style={{backgroundColor: colors.blue}}>
           <Card.Body>
-            <Card.Title>Card title</Card.Title>
+            <Card.Title className="fw-bold">{item.name}</Card.Title>
+              <small className="text-muted">{item.category}</small>
             <Card.Text>
               This is a wider card with supporting text below as a natural
               lead-in to additional content. This content is a little bit
               longer.
             </Card.Text>
-            <footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </footer>
           </Card.Body>
         </Card>
     </StyledContainer>

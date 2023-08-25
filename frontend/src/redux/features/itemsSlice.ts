@@ -4,7 +4,7 @@ import { URL } from "../../App";
 const initialState = {
     items: [],
     latestItems: [],
-    oneItem: {},
+    oneItem: [],
     isLoading: true,
 }
 
@@ -32,7 +32,7 @@ export const getLatestItems = createAsyncThunk(
 export const getOneItem = createAsyncThunk(
   '/getOneItem',
   async () => {
-    const response = await fetch(`${URL}/getOneItem`);
+    const response = await fetch(`${URL}/getOneItem/6544`);
     const data = await response.json();
     return data.rows;
   }
@@ -69,14 +69,14 @@ const itemsSlice = createSlice({
             state.isLoading = false;
           },
         //Get One Item
-        [`${getLatestItems.pending}`]: (state) => {
+        [`${getOneItem.pending}`]: (state) => {
           state.isLoading = true;
         },
-        [`${getLatestItems.fulfilled}`]: (state, action) => {
+        [`${getOneItem.fulfilled}`]: (state, action) => {
           state.isLoading = false;
           state.oneItem = action.payload;
         },
-        [`${getLatestItems.rejected}`]: (state) => {
+        [`${getOneItem.rejected}`]: (state) => {
           state.isLoading = false;
         },
     }
