@@ -31,8 +31,8 @@ export const getLatestItems = createAsyncThunk(
 /* Get One Item */
 export const getOneItem = createAsyncThunk(
   '/getOneItem',
-  async () => {
-    const response = await fetch(`${URL}/getOneItem/6544`);
+  async (productId: string | undefined, thunkAPI) => {
+    const response = await fetch(`${URL}/getOneItem/${productId}`);
     const data = await response.json();
     return data.rows;
   }

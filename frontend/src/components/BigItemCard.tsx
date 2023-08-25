@@ -2,12 +2,14 @@ import { styled } from "styled-components";
 import { colors } from "../assets/colors";
 import { Item } from "./utils/types"
 import {AiOutlineShoppingCart} from "react-icons/ai"
+import { Link } from "react-router-dom";
 
 
 const BigItemCard = ({product}: {product: Item}) => {
 
 return (
     <Container className="card product-card px-3 mr-5" style={{width: "95%"}}>
+      <Link to={`product/${product.id}`} style={{all:"unset"}}>
       <img className="img-fluid mb-3 mx-auto p-4" 
         src={product.imageSrc}
         alt={product.name}
@@ -16,11 +18,13 @@ return (
     <p className="card-subtitle mb-2 text-body-secondary">{product.category}</p>
     <ItemName className="fw-bold mb-3">{product.name}</ItemName>
     <p className="" style={{color: colors.purple}}>{product.price}</p>
+    </Link>
     <AddToCartButton>
       <div className="d-flex p-2">
       <p className="p-0 m-0">+</p>
       <AiOutlineShoppingCart />
       </div>
+
       </AddToCartButton>
     </Container>
 )
