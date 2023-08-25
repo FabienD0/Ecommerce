@@ -6,13 +6,6 @@ import {AiOutlineShoppingCart} from "react-icons/ai"
 
 const BigItemCard = ({product}: {product: Item}) => {
 
-    //Shorter product name
-    const shortProductName = (name: string):string => {
-        let displayName = "";
-        name.length > 40 ? displayName = name.slice(0,40) + "..." : displayName = name;
-        return displayName;
-    }
-
 return (
     <Container className="card product-card px-3 mr-5" style={{width: "95%"}}>
       <img className="img-fluid mb-3 mx-auto p-4" 
@@ -21,7 +14,7 @@ return (
         // outOfStock={product.numInStock}
       />
     <p className="card-subtitle mb-2 text-body-secondary">{product.category}</p>
-    <ItemName className="fw-bold mb-3">{shortProductName(product.name)}</ItemName>
+    <ItemName className="fw-bold mb-3">{product.name}</ItemName>
     <p className="" style={{color: colors.purple}}>{product.price}</p>
     <AddToCartButton>
       <div className="d-flex p-2">
@@ -47,6 +40,10 @@ position: relative;
 }
 `
 const ItemName = styled.p`
+  max-width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 transition: all 300ms;
 &:hover {
   color: ${colors.purple}
