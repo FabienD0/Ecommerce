@@ -8,9 +8,10 @@ dotenv.config();
 
 
 const {
-    test,
-    getLatestItems
-} = require("./mysqltest")
+  getAllItems,
+    getLatestItems,
+    getOneItem
+} = require("./itemsHandlers")
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
@@ -33,12 +34,10 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
 
-  //REST Endpoints
-  app.get("/",(res,req)=> {
-    req.send("Home");
-  })
-  app.get("/getAllItems",test)
+  //Items Endpoints
+  app.get("/getAllItems",getAllItems)
   app.get("/getLatestItems",getLatestItems)
+  app.get("/getOneItem/:id", getOneItem)
 
 
   app.listen(PORT, () => {
