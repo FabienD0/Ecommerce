@@ -7,12 +7,14 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { styled } from "styled-components"
 import { colors } from '../assets/colors';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from "react-icons/fa";
+
 
 const Header = () => {
     return (
 <>
 <StyledNavBar expand="lg" className="navbar mb-3 py-3" fixed='top'>
-          <StyledContainer fluid>
+          <StyledContainer fluid className='p-0'>
             {/* Logo */}
             <Navbar.Brand href="#" className="navbar-brand fs-4">
               <Link to={"/"} style={{all:"unset", cursor:"pointer"}}>
@@ -45,24 +47,25 @@ const Header = () => {
                 aria-label="Search"
                 />
                 </Form>
-                <Nav className="justify-content-center flex-grow-2 pe-3 mx-2 align-items-center fs-5 ">
-                  <Nav.Link href="#action1" className="mx-2">Home</Nav.Link>
-                  <Nav.Link href="#action2" className="mx-2">Link</Nav.Link>
-                  {/* Dropdown */}
-                  <NavDropdown
-                    title="Dropdown"
+                <Nav className=" align-items-center fs-5">
+                    {/* Dropdown */}
+                    <NavDropdown
+                    title="Categories"
                     id={`offcanvasNavbarDropdown-expand-lg`}
-                    className="mx-2"
+                    className="mx-2 fw-bold"
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Entertainment" className='fw-bold my-1'>Fitness</NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Medical" className='fw-bold my-1'>Medical</NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Lifestyle" className='fw-bold my-1'>Lifestyle</NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Entertainment" className='fw-bold my-1'>Entertainment</NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Industrial" className='fw-bold my-1'>Industrial</NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Pets and Animals" className='fw-bold my-1'>Pets and Animals</NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Gaming" className='fw-bold my-1'>Gaming</NavDropdown.Item>
                   </NavDropdown>
+                  <Nav.Link href="/brands" className="mx-2 fw-bold">Brands</Nav.Link>
+                  <Nav.Link href="#action2" className="mx-2 fw-bold">
+                    <FaShoppingCart />
+                  </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
@@ -77,11 +80,13 @@ export default Header
 const StyledNavBar = styled(Navbar)`
   box-shadow: 0 4px 5px -5px rgb(0 0 0 / 23%);
   background-color: ${colors.white};
+  
 `
 
 const StyledContainer = styled(Container)`
 width: 80rem;
 `
+
 
 const SearchBar = styled(Form.Control)`
   border: 1px solid #9d9d9d;

@@ -4,6 +4,7 @@ import GlobalStyles from "./GlobalStyles"
 import Header from "./components/Header"
 import Homepage from "./pages/Homepage"
 import Footer from "./components/Footer"
+import ProductDetails from "./pages/ProductDetails"
 
 
 export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
@@ -18,6 +19,7 @@ const App = () => {
       <Main>
       <Routes>
         <Route path="/" element={<Homepage/>}/>
+        <Route path="/product/:productId" element={<ProductDetails />} />
         </Routes>
       </Main>
       <Footer />
