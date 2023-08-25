@@ -4,6 +4,7 @@ import { URL } from "../../App";
 const initialState = {
     items: [],
     latestItems: [],
+    oneItem: {},
     isLoading: true,
 }
 
@@ -27,18 +28,24 @@ export const getLatestItems = createAsyncThunk(
   }
 );
 
+/* Get One Item */
+export const getOneItem = createAsyncThunk(
+  '/getOneItem',
+  async () => {
+    const response = await fetch(`${URL}/getOneItem`);
+    const data = await response.json();
+    return data.rows;
+  }
+);
+
 
 const itemsSlice = createSlice({
     name: "Items",
     initialState,
     reducers: {
-       addItem: (state,action) => {
-        console.log(state)
-        console.log("Here")
-        console.log(action)
-       } 
     },
     extraReducers: {
+      //Get All Items
         [`${getItems.pending}`]: (state) => {
             state.isLoading = true;
           },
@@ -50,6 +57,7 @@ const itemsSlice = createSlice({
           [`${getItems.rejected}`]: (state) => {
             state.isLoading = false;
           },
+        //Get Latest Items
           [`${getLatestItems.pending}`]: (state) => {
             state.isLoading = true;
           },
@@ -60,9 +68,19 @@ const itemsSlice = createSlice({
           [`${getLatestItems.rejected}`]: (state) => {
             state.isLoading = false;
           },
+        //Get One Item
+        [`${getLatestItems.pending}`]: (state) => {
+          state.isLoading = true;
+        },
+        [`${getLatestItems.fulfilled}`]: (state, action) => {
+          state.isLoading = false;
+          state.oneItem = action.payload;
+        },
+        [`${getLatestItems.rejected}`]: (state) => {
+          state.isLoading = false;
+        },
     }
 })
 
-export const { addItem } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
