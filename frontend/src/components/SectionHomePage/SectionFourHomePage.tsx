@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const SectionFourHomePage = () => {
+
   const navigate = useNavigate();
-  //Function to go to the page of that category
+  const logoSize = 150;
+
+  /* Function to go to the page of that category */
   const handleClick = (id: number) => {
     navigate(`brands/${id}`);
   };
-
-  const logoSize = 150;
 
   return (
     <Container>

@@ -7,6 +7,7 @@ const initialState = {
     isLoading: true,
 }
 
+/* Get All Items */
 export const getItems = createAsyncThunk(
   '/getAllItems',
   async () => {
@@ -16,6 +17,7 @@ export const getItems = createAsyncThunk(
   }
 );
 
+/* Get Latest Items */
 export const getLatestItems = createAsyncThunk(
   '/getLatestItems',
   async () => {

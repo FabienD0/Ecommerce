@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { styled } from "styled-components"
 import { colors } from '../assets/colors';
-
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -14,7 +14,11 @@ const Header = () => {
 <StyledNavBar expand="lg" className="navbar mb-3 py-3" fixed='top'>
           <StyledContainer fluid>
             {/* Logo */}
-            <Navbar.Brand href="#" className="navbar-brand fs-4">Pulse Peak</Navbar.Brand>
+            <Navbar.Brand href="#" className="navbar-brand fs-4">
+              <Link to={"/"} style={{all:"unset", cursor:"pointer"}}>
+              <img className="w-50" src="/images/logo.png" alt='logo'/>
+              </Link>
+            </Navbar.Brand>
             {/* Toggle Button */}
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} className="shadow-none border-0" />
             {/* SiderBar */}

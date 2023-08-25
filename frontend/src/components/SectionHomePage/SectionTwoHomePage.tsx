@@ -14,16 +14,16 @@ const SectionTwoHomePage = () => {
 
     const dispatch = useAppDispatch();
     const { latestItems } = useAppSelector((store) => store.items)
-    
+  
     const [filteredProducts,setFilteredProducts] = useState<Item[]>([]);
 
 
-    //Get All Items
+    /* Get Latest Items */
     useEffect(() => {
     dispatch(getLatestItems());
     },[]);
 
-    //Filter Items on state
+    /* Put it in state */
     useEffect(() => {
       setFilteredProducts(latestItems);
 },[latestItems])
@@ -44,21 +44,19 @@ const settingsCarousel = {
       slidesToScroll: 1,
       initialSlide: 1
     }
-  },
-  // {
-  //   breakpoint: 600,
-  //   settings: {
-  //     slidesToShow: 1,
-  //     slidesToScroll: 1,
-  //     initialSlide: 1
-  //   }
-  // },
+  }
 ]
 };
 
-//Loading State
+/* Loading State */
 if (filteredProducts.length === 0) {
-    return <p>Loading..</p>
+    return (  
+  <div>
+      <SectionTitle className="mb-3">Latest Products</SectionTitle>
+      <div className="d-flex justify-content-center align-items-center">
+      <div className="spinner-border" role="status"></div>
+      </div>
+  </div> )
 }
     
     return (
