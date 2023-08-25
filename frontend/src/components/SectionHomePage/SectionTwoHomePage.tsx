@@ -6,7 +6,9 @@ import BigItemCard from "../BigItemCard"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { styled } from "styled-components"
+import { styled } from "styled-components";
+
+
 
 const SectionTwoHomePage = () => {
 
@@ -14,6 +16,7 @@ const SectionTwoHomePage = () => {
     const { latestItems } = useAppSelector((store) => store.items)
     
     const [filteredProducts,setFilteredProducts] = useState<Item[]>([]);
+
 
     //Get All Items
     useEffect(() => {
@@ -33,8 +36,6 @@ const settingsCarousel = {
   slidesToShow: 3,
   slidesToScroll: 2,
   arrows: false,
-  // nextArrow: <SampleNextArrow />,
-  // prevArrow: <SamplePrevArrow />
 
   responsive: [{
     breakpoint: 600,

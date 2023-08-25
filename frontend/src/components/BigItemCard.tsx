@@ -4,9 +4,7 @@ import { Item } from "./utils/types"
 import {AiOutlineShoppingCart} from "react-icons/ai"
 
 
-const BigItemCard = ({product}:any) => {
-
-    // console.log(product)
+const BigItemCard = ({product}: {product: Item}) => {
 
     //Shorter product name
     const shortProductName = (name: string):string => {
@@ -38,7 +36,7 @@ return (
 export default BigItemCard
 
 const Container = styled.div`
-position: relative;
+position: relative; 
 &:hover {
   cursor: pointer;
   border: 1px solid ${colors.purple};
