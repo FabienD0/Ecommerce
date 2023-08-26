@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { Item } from "../components/utils/types"
 import { getOneItem } from "../redux/features/itemsSlice";
 import { useParams } from "react-router-dom";
+import { AiOutlineShoppingCart, AiOutlineCheckCircle } from "react-icons/ai"
 
 const ProductDetails = () => {
 
@@ -56,11 +57,38 @@ return (
               <Card.Title className="text-muted fs-6">{item.category}, {item.body_location}</Card.Title>
             <Card.Title className="fw-bold fs-4">{item.name}</Card.Title>
             <Card.Title className="fw-bold fs-4" style={{color: colors.purple}}>{item.price}</Card.Title>
+            <div className="d-flex gap-3">
       <Form.Select aria-label="select quantity" style={{width:"5rem"}}>
         {inStock.map((number,index) => {
           return <option key={index} value={index}>{index + 1}</option>
         })}
      </Form.Select>
+     <AddToCartButton className="w-25">
+      <div className="d-flex p-2 justify-content-center gap-2 fw-bold">
+      <AiOutlineShoppingCart />
+      <p className="p-0 m-0">Add to Cart</p>
+      </div>
+
+      </AddToCartButton>
+      </div>
+      <div className="d-flex flex-column gap-2 fs-6 mt-4" style={{color:colors.purple}}>
+        <div className="d-flex gap-2">
+        <AiOutlineCheckCircle />
+        <p className="p-0 m-0 text-muted" style={{color:"black"}}>Unique Quality</p>
+        </div>
+        <div className="d-flex gap-2">
+        <AiOutlineCheckCircle />
+        <p className="p-0 m-0 text-muted">One Year Warranty</p>
+        </div>
+        <div className="d-flex gap-2">
+        <AiOutlineCheckCircle />
+        <p className="p-0 m-0 text-muted">Fast Shipping</p>
+        </div>
+        <div className="d-flex gap-2">
+        <AiOutlineCheckCircle />
+        <p className="p-0 m-0 text-muted">Brand New</p>
+        </div>
+      </div>
           </Card.Body>
         </Card>
     </StyledContainer>
@@ -79,4 +107,20 @@ const StyledContainer = styled(Container)`
     flex-direction: column !important;
 
   }
+`
+const AddToCartButton = styled.button`
+border: none;
+color: ${colors.white};
+border-radius: 5px;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+font-size: 1rem;
+background-color: ${colors.purple};
+transition: opacity .2s ease-in-out;
+opacity: 0.7;
+z-index: 10;
+
+&:hover {
+  box-shadow: none;
+  opacity: 1 !important;
+}
 `
