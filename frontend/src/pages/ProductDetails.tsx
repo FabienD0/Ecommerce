@@ -14,6 +14,8 @@ const dispatch = useAppDispatch();
 const { oneItem } = useAppSelector((store) => store.items)
 
 const [item,setItem] = useState<Item>();
+const [quantitySelected,setQuantitySelected] = useState<number>(1);
+
 const params: string | undefined = useParams().productId;
 
 /* Fill an array for the quantity option */
@@ -33,6 +35,13 @@ useEffect(() => {
 
 console.log(item)
 
+/* Update Price */
+const totalPrice = (quantity:number):number | undefined => {
+if (item){
+  const price: number = parseFloat(item.price.slice(1))
+  return parseFloat((quantity * price).toFixed(2))
+}
+}
 
 /* Loading State */
 if (!item) {
@@ -56,9 +65,9 @@ return (
           <Card.Body>
               <Card.Title className="text-muted fs-6">{item.category}, {item.body_location}</Card.Title>
             <Card.Title className="fw-bold fs-4">{item.name}</Card.Title>
-            <Card.Title className="fw-bold fs-4" style={{color: colors.purple}}>{item.price}</Card.Title>
+            <Card.Title className="fw-bold fs-4" style={{color: colors.purple}}>{totalPrice(quantitySelected)}</Card.Title>
             <div className="d-flex gap-3">
-      <Form.Select aria-label="select quantity" style={{width:"5rem"}}>
+      <Form.Select aria-label="select quantity" style={{width:"5rem"}} onChange={(e) => setQuantitySelected(parseInt(e.target.value)+1)}>
         {inStock.map((number,index) => {
           return <option key={index} value={index}>{index + 1}</option>
         })}
