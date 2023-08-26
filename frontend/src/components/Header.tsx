@@ -6,11 +6,30 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { styled } from "styled-components"
 import { colors } from '../assets/colors';
-import { Link } from 'react-router-dom';
 import { FaShoppingCart } from "react-icons/fa";
-
+import { useEffect, useState } from 'react';
+import SearchResult from './modals/SearchResult';
 
 const Header = () => {
+
+  const [searchInput,setSearchInput] = useState<string>("");
+  const [isSearchResultActive,setIsSearchResultActive] = useState<boolean>(false);
+
+
+  /* When user Type on Search Bar */
+  const handleSearchInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  }
+
+  /* If more than 4 character, modal search bar open */
+  useEffect(() => {
+    if (searchInput.length >= 4) {
+      setIsSearchResultActive(true);
+    } else {
+      setIsSearchResultActive(false);
+    }
+  }, [searchInput]);
+
     return (
 <>
 <StyledNavBar expand="lg" className="navbar mb-3 py-3" fixed='top'>
@@ -43,8 +62,16 @@ const Header = () => {
                 placeholder="Search"
                 className="me-2 w-50"
                 aria-label="Search"
+                onChange={handleSearchInput}
                 />
                 </Form>
+                {isSearchResultActive && (
+            <SearchResult
+              searchInput={searchInput}
+              isSearchResultActive={isSearchResultActive}
+              setIsSearchResultActive={setIsSearchResultActive}
+              setSearchInput={setSearchInput}
+            />)}
                 <Nav className=" align-items-center fs-5">
                     {/* Dropdown */}
                     <NavDropdown

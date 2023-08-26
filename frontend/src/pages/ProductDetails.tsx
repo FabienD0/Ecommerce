@@ -7,6 +7,7 @@ import { Item } from "../components/utils/types"
 import { getOneItem } from "../redux/features/itemsSlice";
 import { useParams } from "react-router-dom";
 import { AiOutlineShoppingCart, AiOutlineCheckCircle } from "react-icons/ai"
+import BigItemCard from "../components/BigItemCard";
 
 const ProductDetails = () => {
 
@@ -33,7 +34,6 @@ useEffect(() => {
     setItem(itemReturn);
   },[oneItem])
 
-console.log(item)
 
 /* Update Price */
 const totalPrice = (quantity:number):number | undefined => {
