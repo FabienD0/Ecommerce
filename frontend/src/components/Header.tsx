@@ -68,9 +68,9 @@ const Header = () => {
                 {isSearchResultActive && (
             <SearchResult
               searchInput={searchInput}
+              setSearchInput={setSearchInput}
               isSearchResultActive={isSearchResultActive}
               setIsSearchResultActive={setIsSearchResultActive}
-              setSearchInput={setSearchInput}
             />)}
                 <Nav className=" align-items-center fs-5">
                     {/* Dropdown */}

@@ -8,3 +8,10 @@
         numInStock: number
         price: string
     }
+
+    export interface PropsSearchResult {
+        searchInput: string,
+        setSearchInput: (val: string) => void,
+        isSearchResultActive: boolean,
+        setIsSearchResultActive: (val: boolean) => void,
+    }
