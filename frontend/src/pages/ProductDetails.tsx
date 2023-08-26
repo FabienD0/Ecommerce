@@ -58,21 +58,21 @@ return (
         <Card className="container">
             <Card.Body className="d-flex align-items-center justify-content-center">
             {/* <img src="../public/images/belkin.png" alt="item" /> */}
-            <img src={item.imageSrc} alt="item" />
+            <StyledImage src={item.imageSrc} alt="item" />
             </Card.Body>
         </Card>
         <Card className="container" style={{backgroundColor: colors.blue}}>
           <Card.Body>
               <Card.Title className="text-muted fs-6">{item.category}, {item.body_location}</Card.Title>
             <Card.Title className="fw-bold fs-4">{item.name}</Card.Title>
-            <Card.Title className="fw-bold fs-4" style={{color: colors.purple}}>{totalPrice(quantitySelected)}</Card.Title>
+            <Card.Title className="fw-bold fs-4" style={{color: colors.purple}}>${totalPrice(quantitySelected)}</Card.Title>
             <div className="d-flex gap-3">
       <Form.Select aria-label="select quantity" style={{width:"5rem"}} onChange={(e) => setQuantitySelected(parseInt(e.target.value)+1)}>
         {inStock.map((number,index) => {
           return <option key={index} value={index}>{index + 1}</option>
         })}
      </Form.Select>
-     <AddToCartButton className="w-25">
+     <AddToCartButton className="w-auto">
       <div className="d-flex p-2 justify-content-center gap-2 fw-bold">
       <AiOutlineShoppingCart />
       <p className="p-0 m-0">Add to Cart</p>
@@ -132,4 +132,12 @@ z-index: 10;
   box-shadow: none;
   opacity: 1 !important;
 }
+`
+
+const StyledImage = styled.img`
+  transition: all 0.3s;
+  &:hover {
+    transition: all 0.3s;
+    transform: scale(1.1) rotate(5deg);
+  }
 `
