@@ -57,6 +57,7 @@ const Header = () => {
               <Offcanvas.Body>
               {/* Searchbar */}
               <Form className="d-flex flex-grow-1 justify-content-center">
+              <div className='container d-flex justify-content-center' style={{position:"relative"}}>
               <SearchBar
                 type="search"
                 placeholder="Search"
@@ -64,14 +65,16 @@ const Header = () => {
                 aria-label="Search"
                 onChange={handleSearchInput}
                 />
-                </Form>
-                {isSearchResultActive && (
+                                {isSearchResultActive && (
             <SearchResult
               searchInput={searchInput}
               setSearchInput={setSearchInput}
               isSearchResultActive={isSearchResultActive}
               setIsSearchResultActive={setIsSearchResultActive}
             />)}
+                </div>
+                </Form>
+
                 <Nav className=" align-items-center fs-5">
                     {/* Dropdown */}
                     <NavDropdown
@@ -114,6 +117,7 @@ width: 80rem;
 
 
 const SearchBar = styled(Form.Control)`
+  position: relative;
   border: 1px solid #9d9d9d;
   border-radius: 10px;
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg");

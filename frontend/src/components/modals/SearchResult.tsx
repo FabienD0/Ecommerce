@@ -1,5 +1,10 @@
+import { styled } from "styled-components";
 import { PropsSearchResult } from "../utils/types"
 import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
+import { Item } from "../utils/types"
+import { getItemsByName } from "../../redux/features/itemsSlice";
+import { Link } from "react-router-dom";
 
 const SearchResult: React.FC<PropsSearchResult>  = ({
     searchInput,
@@ -8,18 +13,115 @@ const SearchResult: React.FC<PropsSearchResult>  = ({
     setIsSearchResultActive,
 }) => {
 
-const [resultItems, setResultItems] = useState([]);
+const [resultItems, setResultItems] = useState<Item[]>([]);
 const [errorMessage, setErrorMessage] = useState();
   
-console.log(searchInput)
+const dispatch = useAppDispatch();
+const { itemsByName } = useAppSelector((store) => store.items)
+
+/* Get Items From Search Input */
+useEffect(() => {
+    dispatch(getItemsByName(searchInput))
+    },[]);
+
+ /* Put it in state */
+  useEffect(() => {
+    setResultItems(itemsByName);
+  },[itemsByName])
+
+/* Handle Click Item */
+const handleClick = () => {
+    console.log("allo")
+}
+
+/* Loading State */
+if(!resultItems) {
+    return (
+    <Container>
+        <p>Loading...</p>
+    </Container>)
+}
 
 return (
-    <>
-     <h1>
-        <p>Hello</p>
-     </h1>
-    </>
+<Container>
+  {resultItems.map((item) => {
+    return (
+      <ContainerItemSearched
+        key={item.id}
+        to={`/product/${item.id}`}
+        onClick={handleClick}
+      >
+        <ItemImage src={item.imageSrc} />
+        <ItemName>{item.name}</ItemName>
+        <ItemPrice>{item.price}</ItemPrice>
+      </ContainerItemSearched>
+    );
+  })}
+</Container>
 )
 }
 
 export default SearchResult
+
+const Container = styled.div`
+  position: absolute;
+  width: 70%;
+  min-height: 5rem;
+  max-height: 25rem;
+  background-color: white;
+  border: 1px solid #9d9d9d;
+  border-radius: 10px;
+  overflow: auto;
+  top: 40px;
+
+  @media (max-width: 800px) {
+    width: calc(100% + 3rem);
+  }
+`;
+
+const DivLoading = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+`;
+
+const ContainerItemSearched = styled(Link)`
+  all: unset;
+  padding: 1rem 1rem;
+  max-height: 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #9d9d9d;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    max-height: 20rem;
+    font-size: 14px;
+  }
+
+  :hover {
+    cursor: pointer;
+    border: 2px solid #9d9d9d;
+    border-bottom: 3px solid #9d9d9d;
+  }
+`;
+
+const ItemName = styled.p`
+  width: 60%;
+
+  @media (max-width: 800px) {
+    width: 100%;
+    margin: 1rem 0;
+  }
+`;
+
+const ItemImage = styled.img`
+  width: 5rem;
+`;
+
+const ItemPrice = styled.p`
+  font-weight: 900;
+`;
