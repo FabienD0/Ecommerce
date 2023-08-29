@@ -61,6 +61,7 @@ const Header = () => {
               <SearchBar
                 type="search"
                 placeholder="Search"
+                value={searchInput}
                 className="me-2 w-50"
                 aria-label="Search"
                 onChange={handleSearchInput}

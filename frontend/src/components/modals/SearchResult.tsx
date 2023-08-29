@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import { Item } from "../utils/types"
 import { getItemsByName } from "../../redux/features/itemsSlice";
 import { Link } from "react-router-dom";
+import { colors } from "../../assets/colors";
 
 const SearchResult: React.FC<PropsSearchResult>  = ({
     searchInput,
@@ -31,14 +32,18 @@ useEffect(() => {
 
 /* Handle Click Item */
 const handleClick = () => {
-    console.log("allo")
+    setIsSearchResultActive(false);
+    setResultItems([]);
+    setSearchInput("");
 }
 
 /* Loading State */
 if(!resultItems) {
     return (
     <Container>
+        <DivLoading>
         <p>Loading...</p>
+        </DivLoading>
     </Container>)
 }
 
@@ -93,7 +98,7 @@ const ContainerItemSearched = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid transparent;
+  opacity: 0.7;
   border-bottom: 1px solid #9d9d9d;
 
   @media (max-width: 800px) {
@@ -102,10 +107,9 @@ const ContainerItemSearched = styled(Link)`
     font-size: 14px;
   }
 
-  :hover {
+  &:hover {
     cursor: pointer;
-    border: 2px solid #9d9d9d;
-    border-bottom: 3px solid #9d9d9d;
+    opacity: 1;
   }
 `;
 
