@@ -10,7 +10,8 @@ dotenv.config();
 const {
   getAllItems,
     getLatestItems,
-    getOneItem
+    getOneItem,
+    getItemsByName
 } = require("./itemsHandlers")
 
 const app: Express = express();
@@ -38,6 +39,7 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
   app.get("/getAllItems",getAllItems)
   app.get("/getLatestItems",getLatestItems)
   app.get("/getOneItem/:id", getOneItem)
+  app.get("/getItemsByName/:name",getItemsByName)
 
 
   app.listen(PORT, () => {
