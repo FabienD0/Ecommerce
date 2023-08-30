@@ -9,29 +9,22 @@ import { Link } from "react-router-dom";
 const SearchResult: React.FC<PropsSearchResult>  = ({
     searchInput,
     setSearchInput,
-    isSearchResultActive,
     setIsSearchResultActive,
 }) => {
 
 const [resultItems, setResultItems] = useState<Item[]>([]);
-// const [resultItems, setResultItems] = useState<any>();
-const [errorMessage, setErrorMessage] = useState<string>();
   
 const dispatch = useAppDispatch();
-const { itemsByName,searchStatus } = useAppSelector((store) => store.items)
+const { itemsByName,searchStatus, isLoading } = useAppSelector((store) => store.items)
 
 /* Get Items From Search Input */
 useEffect(() => {
     dispatch(getItemsByName(searchInput))
-    },[]);
+    },[searchInput]);
 
  /* Put it in state */
   useEffect(() => {
-    if (searchStatus === 404) {
-      setResultItems([]);
-      setErrorMessage("Product Not Found")
-    } else {
-      setErrorMessage("");
+    if (searchStatus === 200) {
       setResultItems(itemsByName)
     }
   },[itemsByName])
@@ -44,8 +37,8 @@ const handleClick = () => {
     setSearchInput("");
 }
 
-  /*Return No item found if the server didn't receive anything */
-  if (resultItems?.length === 0 && !errorMessage) {
+  /*Return "No item found" if the server didn't receive anything */
+  if (isLoading) {
     return (
       <Container>
         <DivLoading>
@@ -55,26 +48,16 @@ const handleClick = () => {
     );
   }
 
-   /* Return message if there's not product found */
-   if (errorMessage && resultItems?.length === 0) {
+  /* If error 404, return "No Product Found" */
+  if (searchStatus === 404) {
     return (
       <Container>
         <DivLoading>
-          <h4>{errorMessage}</h4>
+          <h4>Product Not Found</h4>
         </DivLoading>
       </Container>
     );
   }
-
-/* Loading State */
-// if(!resultItems) {
-//     return (
-//     <Container>
-//         <DivLoading>
-//         <p>Loading...</p>
-//         </DivLoading>
-//     </Container>)
-// }
 
 return (
 <Container>
