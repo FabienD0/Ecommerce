@@ -26,7 +26,7 @@ const inStock: number[] = Array.from({ length: numInStock }, (_,index) => index)
 /* Get Latest Items */
 useEffect(() => {
   dispatch(getOneItem(params));
-  },[]);
+  },[params]);
   
 /* Put it in state */
   useEffect(() => {

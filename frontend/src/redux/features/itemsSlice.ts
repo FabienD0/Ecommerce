@@ -5,7 +5,8 @@ const initialState = {
     items: [],
     latestItems: [],
     oneItem: [],
-    itemsByName: [],
+    itemsByName:[],
+    searchStatus: 0,
     isLoading: true,
 }
 
@@ -45,7 +46,7 @@ export const getItemsByName = createAsyncThunk(
   async (name: string | undefined, thunkAPI) => {
     const response = await fetch(`${URL}/getItemsByName/${name}`);
     const data = await response.json();
-    return data.rows;
+    return data;
   }
 );
 
@@ -96,7 +97,8 @@ const itemsSlice = createSlice({
         },
         [`${getItemsByName.fulfilled}`]: (state, action) => {
           state.isLoading = false;
-          state.itemsByName = action.payload;
+          state.itemsByName = action.payload.rows;
+          state.searchStatus = action.payload.status;
         },
         [`${getItemsByName.rejected}`]: (state) => {
           state.isLoading = false;

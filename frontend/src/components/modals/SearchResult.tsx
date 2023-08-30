@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import { Item } from "../utils/types"
 import { getItemsByName } from "../../redux/features/itemsSlice";
 import { Link } from "react-router-dom";
-import { colors } from "../../assets/colors";
 
 const SearchResult: React.FC<PropsSearchResult>  = ({
     searchInput,
@@ -15,10 +14,11 @@ const SearchResult: React.FC<PropsSearchResult>  = ({
 }) => {
 
 const [resultItems, setResultItems] = useState<Item[]>([]);
-const [errorMessage, setErrorMessage] = useState();
+// const [resultItems, setResultItems] = useState<any>();
+const [errorMessage, setErrorMessage] = useState<string>();
   
 const dispatch = useAppDispatch();
-const { itemsByName } = useAppSelector((store) => store.items)
+const { itemsByName,searchStatus } = useAppSelector((store) => store.items)
 
 /* Get Items From Search Input */
 useEffect(() => {
@@ -27,8 +27,15 @@ useEffect(() => {
 
  /* Put it in state */
   useEffect(() => {
-    setResultItems(itemsByName);
+    if (searchStatus === 404) {
+      setResultItems([]);
+      setErrorMessage("Product Not Found")
+    } else {
+      setErrorMessage("");
+      setResultItems(itemsByName)
+    }
   },[itemsByName])
+
 
 /* Handle Click Item */
 const handleClick = () => {
@@ -37,15 +44,37 @@ const handleClick = () => {
     setSearchInput("");
 }
 
-/* Loading State */
-if(!resultItems) {
+  /*Return No item found if the server didn't receive anything */
+  if (resultItems?.length === 0 && !errorMessage) {
     return (
-    <Container>
+      <Container>
         <DivLoading>
-        <p>Loading...</p>
+          <h4>Loading...</h4>
         </DivLoading>
-    </Container>)
-}
+      </Container>
+    );
+  }
+
+   /* Return message if there's not product found */
+   if (errorMessage && resultItems?.length === 0) {
+    return (
+      <Container>
+        <DivLoading>
+          <h4>{errorMessage}</h4>
+        </DivLoading>
+      </Container>
+    );
+  }
+
+/* Loading State */
+// if(!resultItems) {
+//     return (
+//     <Container>
+//         <DivLoading>
+//         <p>Loading...</p>
+//         </DivLoading>
+//     </Container>)
+// }
 
 return (
 <Container>

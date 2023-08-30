@@ -20,7 +20,7 @@ const SectionTwoHomePage = () => {
 
     /* Get Latest Items */
     useEffect(() => {
-    dispatch(getLatestItems());
+    dispatch(getLatestItems())
     },[]);
 
     /* Put it in state */
