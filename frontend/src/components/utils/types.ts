@@ -19,3 +19,12 @@
     export interface PropsOverlay {
         setIsCart: (val:boolean) => void
     }
+
+    export interface PropsHeader {
+        setIsCart: (val:boolean) => void
+    }
+
+    export interface PropsCart {
+        isCart: boolean
+        setIsCart: (val:boolean) => void
+    }

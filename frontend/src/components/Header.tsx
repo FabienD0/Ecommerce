@@ -9,8 +9,9 @@ import { colors } from '../assets/colors';
 import { FaShoppingCart } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import SearchResult from './modals/SearchResult';
+import { PropsHeader } from './utils/types';
 
-const Header = ({setIsCart}: any) => {
+const Header: React.FC<PropsHeader> = ({setIsCart}) => {
 
   const [searchInput,setSearchInput] = useState<string>("");
   const [isSearchResultActive,setIsSearchResultActive] = useState<boolean>(false);

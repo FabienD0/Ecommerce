@@ -7,6 +7,7 @@ import Footer from "./components/Footer"
 import ProductDetails from "./pages/ProductDetails"
 import { useState } from "react"
 import Overlay from "./components/utils/Overlay"
+import Cart from "./components/modals/Cart"
 
 
 export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
@@ -19,6 +20,7 @@ const App = () => {
     <BrowserRouter>
     <GlobalStyles />
     <Container className="container-fluid p-0">
+    <Cart isCart={isCart} setIsCart={setIsCart} />
     {isCart && <Overlay setIsCart={setIsCart} />}
       <Header setIsCart={setIsCart} />
       <Main>
