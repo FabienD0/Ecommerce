@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import { Item } from "../utils/types"
 import { getItemsByName } from "../../redux/features/itemsSlice";
 import { Link } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
+import { colors } from "../../assets/colors";
 
 const SearchResult: React.FC<PropsSearchResult>  = ({
     searchInput,
@@ -40,10 +42,10 @@ const handleClick = () => {
   /*Return "No item found" if the server didn't receive anything */
   if (isLoading) {
     return (
-      <Container>
-        <DivLoading>
-          <h4>Loading...</h4>
-        </DivLoading>
+      <Container className="d-flex justify-content-center align-items-center" style={{color: colors.purple}}>
+        <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
       </Container>
     );
   }

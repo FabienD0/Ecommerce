@@ -15,3 +15,7 @@
         isSearchResultActive: boolean,
         setIsSearchResultActive: (val: boolean) => void,
     }
+
+    export interface PropsOverlay {
+        setIsCart: (val:boolean) => void
+    }

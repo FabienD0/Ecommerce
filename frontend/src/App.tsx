@@ -5,17 +5,22 @@ import Header from "./components/Header"
 import Homepage from "./pages/Homepage"
 import Footer from "./components/Footer"
 import ProductDetails from "./pages/ProductDetails"
+import { useState } from "react"
+import Overlay from "./components/utils/Overlay"
 
 
 export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
 const App = () => {
 
+  const [isCart, setIsCart] = useState<boolean>(false);
+
   return (
     <BrowserRouter>
     <GlobalStyles />
     <Container className="container-fluid p-0">
-      <Header />
+    {isCart && <Overlay setIsCart={setIsCart} />}
+      <Header setIsCart={setIsCart} />
       <Main>
       <Routes>
         <Route path="/" element={<Homepage/>}/>

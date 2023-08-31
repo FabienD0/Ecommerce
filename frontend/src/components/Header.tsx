@@ -10,7 +10,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import SearchResult from './modals/SearchResult';
 
-const Header = () => {
+const Header = ({setIsCart}: any) => {
 
   const [searchInput,setSearchInput] = useState<string>("");
   const [isSearchResultActive,setIsSearchResultActive] = useState<boolean>(false);
@@ -92,9 +92,9 @@ const Header = () => {
                     <NavDropdown.Item href="/categories/Gaming" className='fw-bold my-1'>Gaming</NavDropdown.Item>
                   </NavDropdown>
                   <Nav.Link href="/brands" className="mx-2 fw-bold">Brands</Nav.Link>
-                  <Nav.Link href="#action2" className="mx-2 fw-bold">
-                    <FaShoppingCart />
-                  </Nav.Link>
+                    <button className="mx-2 fw-bold"style={{all:"unset"}} onClick={() => setIsCart(true)}>
+                    <FaShoppingCartStyled />
+                    </button>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
@@ -133,4 +133,14 @@ const SearchBar = styled(Form.Control)`
     border-color: #b1b2ff;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 3px #b1b2ff;
   }
+`
+
+const FaShoppingCartStyled = styled(FaShoppingCart)`
+opacity: 0.8;
+transition: all 200ms;
+
+&:hover {
+  cursor: pointer;
+  opacity: 1;
+}
 `
