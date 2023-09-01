@@ -8,6 +8,7 @@ import ProductDetails from "./pages/ProductDetails"
 import { useState } from "react"
 import Overlay from "./components/utils/Overlay"
 import Cart from "./components/modals/Cart"
+import Category from "./pages/Category"
 
 
 export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
@@ -27,6 +28,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Homepage/>}/>
         <Route path="/product/:productId" element={<ProductDetails />} />
+        <Route path="/categories/:category" element={<Category />} />
         </Routes>
       </Main>
       <Footer />
