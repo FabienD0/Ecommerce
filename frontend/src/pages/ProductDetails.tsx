@@ -22,7 +22,7 @@ const params: string | undefined = useParams().productId;
 const numInStock = item?.numInStock || 0;
 const inStock: number[] = Array.from({ length: numInStock }, (_,index) => index);
 
-/* Get Latest Items */
+/* Get One Items */
 useEffect(() => {
   dispatch(getOneItem(params));
   },[params]);

@@ -3,6 +3,10 @@ import { useContext, useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr"
 import { useNavigate } from "react-router-dom";
 import { PropsCart } from "../utils/types";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
+import { Item } from "../utils/types"
+import { getOneItem } from "../../redux/features/itemsSlice";
+import ItemCartCard from "../ItemCartCard";
 
 interface cartProps {
     $cart: boolean;
@@ -12,6 +16,26 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
 
   const [isItemRemoved, setIsItemRemoved] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+  const [item,setItem] = useState<Item>();
+
+  const dispatch = useAppDispatch();
+const { oneItem } = useAppSelector((store) => store.items)
+
+
+/* Get One Items */
+useEffect(() => {
+  dispatch(getOneItem("6554"));
+  },[]);
+  
+/* Put it in state */
+  useEffect(() => {
+    const [itemReturn] = oneItem
+    setItem(itemReturn);
+  },[oneItem])
+
+  console.log(item)
+
+
 
   /* Close Cart */ 
   const handleClose = () => {
@@ -29,50 +53,13 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
           <GrClose />
         </button>
       </ContainerTop>
-        <ContainerMid>
+      {!item &&<ContainerMid>
           <Image src="/images/cartEmpty.png" />
           <H2>You cart is empty</H2>
-        </ContainerMid>
-      {/* {selectedProducts.length !== 0 && (
+        </ContainerMid>}
         <ContainerItemCart>
-          {selectedProducts.map((item) => {
-            return (
-              <ItemCardCart
-                key={item._id}
-                product={item}
-                isItemRemoved={isItemRemoved}
-                setIsItemRemoved={setIsItemRemoved}
-              />
-            );
-          })}
-          <ClearAllButton disabled={isDeleteLoading} onClick={handleClear}>
-            Clear
-          </ClearAllButton>
+        {item && <ItemCartCard item={item} />}
         </ContainerItemCart>
-      )} */}
-      {/* {selectedProducts.length !== 0 && (
-        <ContainerCheckout>
-          <H2>Subtotal</H2>
-          <ContainerCheckoutButton>
-            <H2
-              style={{
-                color: "#4243AE",
-                textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              {totalPrice.toFixed(2)}$
-            </H2>
-            <Button
-              onClick={() => {
-                navigate("/checkout");
-                setIsCart(false);
-              }}
-            >
-              Go to Checkout
-            </Button>
-          </ContainerCheckoutButton>
-        </ContainerCheckout>
-      )} */}
     </Container>
   );
 };
