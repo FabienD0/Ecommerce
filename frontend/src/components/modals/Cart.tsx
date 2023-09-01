@@ -20,19 +20,19 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
   const [item,setItem] = useState<Item>();
 
   const dispatch = useAppDispatch();
-const { oneItem } = useAppSelector((store) => store.items)
+  // const { oneItem } = useAppSelector((store) => store.items)
 
 
-/* Get One Items */
-useEffect(() => {
-  dispatch(getOneItem("6554"));
-  },[]);
+// /* Get One Items */
+// useEffect(() => { 
+//   dispatch(getOneItem("6554"));
+//   },[]);
   
-/* Put it in state */
-  useEffect(() => {
-    const [itemReturn] = oneItem
-    setItem(itemReturn);
-  },[oneItem])
+// /* Put it in state */
+//   useEffect(() => {
+//     const [itemReturn] = oneItem
+//     setItem(itemReturn);
+//   },[oneItem])
 
 
   /* Close Cart */ 
@@ -52,13 +52,12 @@ useEffect(() => {
           <Image src="/images/cartEmpty.png" />
           <H2>You cart is empty</H2>
         </ContainerMid>}
+        {item && 
+        <>
         <ContainerItemCart>
-        {item && <>
           <ItemCartCard item={item} />
           <ItemCartCard item={item} />
           <ItemCartCard item={item} />
-        </>
-        }
         <ClearButton>Clear</ClearButton>
         </ContainerItemCart>
         <div className="d-flex flex-column py-2" style={{borderTop: "3px dashed black"}}>
@@ -68,6 +67,7 @@ useEffect(() => {
         </div>
           <CheckoutButton>Go to Checkout</CheckoutButton>
         </div>
+        </>}
     </Container>
   );
 };

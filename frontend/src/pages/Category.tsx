@@ -3,13 +3,28 @@ import { useParams } from "react-router-dom"
 import { styled } from "styled-components"
 import {useState,useEffect } from "react"
 import { Item } from "../components/utils/types"
+import { useAppDispatch, useAppSelector } from "../redux/app/hooks"
+import { getItemsByCategory } from "../redux/features/itemsSlice"
 
 const Category = () => {
 
 const [itemsInCategory,setItemsInCategory] = useState<Item[]>([]);
 const { category } = useParams();
 
+const dispatch = useAppDispatch();
+const { itemsByCategory } = useAppSelector((store) => store.items )
 
+/* Get Items from Category */
+useEffect(() => {
+dispatch(getItemsByCategory(category))
+},[category])
+
+/* Put it In State */
+useEffect(() => {
+setItemsInCategory(itemsByCategory)
+},[itemsByCategory])
+
+console.log(itemsInCategory)
 
 /* Loading */
 if (itemsInCategory?.length === 1) {

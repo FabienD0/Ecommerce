@@ -84,7 +84,7 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
                     id={`offcanvasNavbarDropdown-expand-lg`}
                     className="mx-2 fw-bold"
                   >
-                    <NavDropdown.Item href="/categories/Entertainment" className='fw-bold my-1'>Fitness</NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/Fitness" className='fw-bold my-1'>Fitness</NavDropdown.Item>
                     <NavDropdown.Item href="/categories/Medical" className='fw-bold my-1'>Medical</NavDropdown.Item>
                     <NavDropdown.Item href="/categories/Lifestyle" className='fw-bold my-1'>Lifestyle</NavDropdown.Item>
                     <NavDropdown.Item href="/categories/Entertainment" className='fw-bold my-1'>Entertainment</NavDropdown.Item>

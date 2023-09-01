@@ -21,7 +21,7 @@ const { itemsByName,searchStatus, isLoading } = useAppSelector((store) => store.
 
 /* Get Items From Search Input */
 useEffect(() => {
-    dispatch(getItemsByName(searchInput))
+      dispatch(getItemsByName(searchInput))
     },[searchInput]);
 
  /* Put it in state */
