@@ -11,7 +11,8 @@ const {
   getAllItems,
     getLatestItems,
     getOneItem,
-    getItemsByName
+    getItemsByName,
+    getItemsByCategory
 } = require("./itemsHandlers")
 
 const app: Express = express();
@@ -40,6 +41,7 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
   app.get("/getLatestItems",getLatestItems)
   app.get("/getOneItem/:id", getOneItem)
   app.get("/getItemsByName/:name",getItemsByName)
+  app.get("/getItemsByCategory:category",getItemsByCategory)
 
 
   app.listen(PORT, () => {
