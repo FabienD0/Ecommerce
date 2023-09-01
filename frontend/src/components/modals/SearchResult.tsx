@@ -55,7 +55,7 @@ const handleClick = () => {
     return (
       <Container>
         <DivLoading>
-          <h4>Product Not Found</h4>
+          <h5>Product Not Found</h5>
         </DivLoading>
       </Container>
     );

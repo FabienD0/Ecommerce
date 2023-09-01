@@ -40,9 +40,6 @@ useEffect(() => {
     setIsCart(false);
   };
 
-  const navigate = useNavigate();
-
-
   return (
     <Container $cart={isCart}>
       <ContainerTop>
@@ -51,7 +48,7 @@ useEffect(() => {
           <GrClose />
         </button>
       </ContainerTop>
-      {!item &&<ContainerMid>
+      {!item && <ContainerMid>
           <Image src="/images/cartEmpty.png" />
           <H2>You cart is empty</H2>
         </ContainerMid>}
@@ -64,6 +61,13 @@ useEffect(() => {
         }
         <ClearButton>Clear</ClearButton>
         </ContainerItemCart>
+        <div className="d-flex flex-column py-2" style={{borderTop: "3px dashed black"}}>
+        <div className="d-flex justify-content-between align-items-center">
+        <h4 className="fw-bold">Subtotal:</h4>
+          <h4 className="fw-bold" style={{color: colors.purple,textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)"}}>100.34$</h4>
+        </div>
+          <CheckoutButton>Go to Checkout</CheckoutButton>
+        </div>
     </Container>
   );
 };
@@ -77,7 +81,7 @@ const Container = styled.div<cartProps>`
   width: 30rem;
   background-color: #fff;
   height: 100vh;
-  padding: 3rem 2.5rem 1.5rem;
+  padding: 2.5rem;
   right: ${(props) => (props.$cart ? "0" : "-100%")};
   top: 0px;
   transition: all 0.3s ease-in-out;
@@ -139,3 +143,24 @@ transition: opacity .2s ease-in-out;
   opacity: 1 !important;
 }
 `
+
+const CheckoutButton = styled.button`
+  all: unset;
+  width: 12rem;
+  text-align: center;
+  font-weight: 700;
+  border: 2px solid black;
+  letter-spacing: 0.05em;
+  color: black;
+  padding: 0.8rem 0;
+  background-color: transparent;
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+  }
+`;

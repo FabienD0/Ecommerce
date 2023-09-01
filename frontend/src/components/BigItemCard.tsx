@@ -4,28 +4,32 @@ import { Item } from "./utils/types"
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import { Link } from "react-router-dom";
 
+interface outOfStockProps {
+  outofstock: number;
+}
 
 const BigItemCard = ({product}: {product: Item}) => {
 
 return (
     <Container className="card product-card px-3 mr-5" style={{width: "95%"}}>
       <Link to={`product/${product.id}`} style={{all:"unset"}}>
-      <img className="img-fluid mb-3 mx-auto p-4" 
+      <Image className="img-fluid mb-3 mx-auto p-4" 
         src={product.imageSrc}
         alt={product.name}
-        // outOfStock={product.numInStock}
+        outofstock={product.numInStock}
       />
+      {product.numInStock === 0 && <h4 className="text-center text-danger fw-bold position-absolute top-50 start-50 translate-middle w-100">Out Of Stock</h4>}
     <p className="card-subtitle mb-2 text-body-secondary">{product.category}</p>
     <ItemName className="fw-bold mb-3">{product.name}</ItemName>
     <p className="" style={{color: colors.purple}}>{product.price}</p>
     </Link>
-    <AddToCartButton>
+    {product.numInStock !== 0 && <AddToCartButton>
       <div className="d-flex p-2">
       <p className="p-0 m-0">+</p>
       <AiOutlineShoppingCart />
       </div>
 
-      </AddToCartButton>
+      </AddToCartButton>}
     </Container>
 )
 }
@@ -42,8 +46,12 @@ position: relative;
 &:hover > button {
   opacity: 0.7;
 }
-
 `
+
+const Image = styled.img<outOfStockProps>`
+opacity: ${(props) => (props.outofstock === 0 ? "0.5" : "1")};
+`
+
 const ItemName = styled.p`
   max-width: 90%;
   overflow: hidden;
