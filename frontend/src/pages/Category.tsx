@@ -5,14 +5,17 @@ import {useState,useEffect } from "react"
 import { Item } from "../components/utils/types"
 import { useAppDispatch, useAppSelector } from "../redux/app/hooks"
 import { getItemsByCategory } from "../redux/features/itemsSlice"
+import BigItemCard from "../components/BigItemCard"
 
 const Category = () => {
 
-const [itemsInCategory,setItemsInCategory] = useState<Item[]>([]);
-const { category } = useParams();
-
+    
 const dispatch = useAppDispatch();
 const { itemsByCategory } = useAppSelector((store) => store.items )
+const { category } = useParams();
+
+const [itemsInCategory,setItemsInCategory] = useState<Item[]>([]);
+
 
 /* Get Items from Category */
 useEffect(() => {
@@ -23,8 +26,6 @@ dispatch(getItemsByCategory(category))
 useEffect(() => {
 setItemsInCategory(itemsByCategory)
 },[itemsByCategory])
-
-console.log(itemsInCategory)
 
 /* Loading */
 if (itemsInCategory?.length === 1) {
@@ -38,8 +39,17 @@ if (itemsInCategory?.length === 1) {
 }
 
 return (
-    <Container>
+    <Container className="pb-5">
     <SectionTitle>{category}</SectionTitle>
+    <Container className="d-flex flex-wrap justify-content-center gap-3">
+        {itemsInCategory.map((product) => {
+            return (
+            <div className="d-flex w-25">
+            <BigItemCard key={product.id} product={product} />
+            </div>
+            )
+        })}
+    </Container>
     </Container>
 )
 }

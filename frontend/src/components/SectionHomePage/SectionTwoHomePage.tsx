@@ -89,7 +89,6 @@ const SectionTitle = styled.h2`
 const ContainerItemCard = styled.div`
 @media (max-width: 600px) {
     width: 80vw !important;
-    /* width: 20rem !important; */
   }
 `
 
