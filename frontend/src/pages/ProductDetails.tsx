@@ -66,12 +66,13 @@ return (
             <Card.Title className="fw-bold fs-4">{item.name}</Card.Title>
             <Card.Title className="fw-bold fs-4" style={{color: colors.purple}}>${totalPrice(quantitySelected)}</Card.Title>
             <div className="d-flex gap-3">
-      <Form.Select aria-label="select quantity" style={{width:"5rem"}} onChange={(e) => setQuantitySelected(parseInt(e.target.value)+1)}>
+      <Form.Select aria-label="select quantity" disabled={item.numInStock === 0} style={{width:"5rem"}} onChange={(e) => setQuantitySelected(parseInt(e.target.value)+1)}>
+        {item.numInStock === 0 && <option>-</option>}
         {inStock.map((number,index) => {
           return <option key={index} value={index}>{index + 1}</option>
         })}
      </Form.Select>
-     <AddToCartButton className="w-auto">
+     <AddToCartButton className="w-auto" disabled={item.numInStock === 0}>
       <div className="d-flex p-2 justify-content-center gap-2 fw-bold">
       <AiOutlineShoppingCart />
       <p className="p-0 m-0">Add to Cart</p>
@@ -80,6 +81,7 @@ return (
       </AddToCartButton>
       </div>
       <div className="d-flex flex-column gap-2 fs-6 mt-4" style={{color:colors.purple}}>
+        {item.numInStock === 0 && <p className="text-danger fw-bold" style={{color:"black"}}>Out of Stock</p>}
         <div className="d-flex gap-2">
         <AiOutlineCheckCircle />
         <p className="p-0 m-0 text-muted" style={{color:"black"}}>Unique Quality</p>
@@ -130,6 +132,14 @@ z-index: 10;
 &:hover {
   box-shadow: none;
   opacity: 1 !important;
+}
+
+&:disabled {
+  opacity: 0.3;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;  
+    opacity: 0.3 !important;
+  }
 }
 `
 
