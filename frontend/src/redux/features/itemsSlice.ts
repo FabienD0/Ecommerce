@@ -7,6 +7,7 @@ const initialState = {
     oneItem: [],
     itemsByName:[],
     itemsByCategory: [],
+    itemsByBrands: [],
     searchStatus: 0,
     isLoading: true,
 }
@@ -60,6 +61,17 @@ export const getItemsByCategory = createAsyncThunk(
     return data.rows;
   }
 );
+
+/* Get Items by Brands */
+export const getItemsByBrands = createAsyncThunk(
+  '/getItemsByBrands',
+  async (brand: string | undefined, thunkAPI) => {
+    const response = await fetch(`${URL}/getItemsByBrands/${brand}`);
+    const data = await response.json();
+    return data.rows;
+  }
+);
+
 
 
 const itemsSlice = createSlice({
@@ -124,6 +136,17 @@ const itemsSlice = createSlice({
         },
         [`${getItemsByCategory.rejected}`]: (state) => {
           state.isLoading = false;
+        },
+        //Get Item By Brands
+        [`${getItemsByBrands.pending}`]: (state) => {
+          state.isLoading = true;
+          },
+        [`${getItemsByBrands.fulfilled}`]: (state, action) => {
+          state.isLoading = false;
+          state.itemsByBrands = action.payload;
+        },
+        [`${getItemsByBrands.rejected}`]: (state) => {
+           state.isLoading = false;
         },
     }
 })
