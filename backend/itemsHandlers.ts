@@ -114,7 +114,30 @@ const getAllItems = async (req: Request, res: Response) => {
           console.log(err)
         }
         }
+    /* Get multiples Items by their BRANDS */
+    const getItemsByBrands = async (req: Request, res: Response) => {
 
+      const { brand } = req.params;
+        
+      try {
+        const connection = await mysql.createConnection(process.env.DATABASE_URL);
+        connection.query(`SELECT * FROM items WHERE companyId = '${brand}';`, (_err:Error, rows:RowDataPacket[]) => {
+          if(_err) {
+            res.status(500).json({ status: 500, message: `error: ${_err.message}` });
+          } else { 
+            if(rows.length != 0) {
+              res.status(200).json({status:200,rows:rows,message:"success"})
+              } else {
+                res.status(404).json({status:404,message:"Brand not found"})
+              }
+            }
+          });
+          connection.end()
+          console.log("Connection Ended")
+        } catch(err) {
+          console.log(err)
+        }
+        }
 module.exports = {
-  getAllItems,getLatestItems,getOneItem,getItemsByName,getItemsByCategory
+  getAllItems,getLatestItems,getOneItem,getItemsByName,getItemsByCategory,getItemsByBrands
   };

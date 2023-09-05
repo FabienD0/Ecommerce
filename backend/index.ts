@@ -12,7 +12,8 @@ const {
     getLatestItems,
     getOneItem,
     getItemsByName,
-    getItemsByCategory
+    getItemsByCategory,
+    getItemsByBrands
 } = require("./itemsHandlers")
 
 const app: Express = express();
@@ -42,7 +43,8 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
   app.get("/getOneItem/:id", getOneItem)
   app.get("/getItemsByName/:name",getItemsByName)
   app.get("/getItemsByCategory/:category",getItemsByCategory)
-
+  app.get("/getItemsByBrands/:brand",getItemsByBrands)
+  
 
   app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
