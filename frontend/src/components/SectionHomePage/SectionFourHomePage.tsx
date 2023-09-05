@@ -8,7 +8,7 @@ const SectionFourHomePage = () => {
 
   /* Function to go to the page of that category */
   const handleClick = (id: number) => {
-    navigate(`brands/${id}`);
+    navigate(`brand/${id}`);
   };
 
   return (
