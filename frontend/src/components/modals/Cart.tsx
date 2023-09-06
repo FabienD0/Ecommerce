@@ -18,18 +18,18 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [items,setItems] = useState<ItemCard[]>([]);
 
-  const { cartItems } = useAppSelector((store) => store.cart)
+  const { cartItems,totalAmount } = useAppSelector((store) => store.cart)
 
  /* Put it in state */
   useEffect(() => {
     setItems(cartItems)
   },[cartItems])
 
-
   /* Close Cart */ 
   const handleClose = () => {
     setIsCart(false);
   };
+
 
   return (
     <Container $cart={isCart}>
@@ -54,7 +54,7 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
         <div className="d-flex flex-column py-2" style={{borderTop: "3px dashed black"}}>
         <div className="d-flex justify-content-between align-items-center">
         <h4 className="fw-bold">Subtotal:</h4>
-          <h4 className="fw-bold" style={{color: colors.purple,textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)"}}>100.34$</h4>
+          <h4 className="fw-bold" style={{color: colors.purple,textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)"}}>{totalAmount.toFixed(2)}</h4>
         </div>
           <CheckoutButton>Go to Checkout</CheckoutButton>
         </div>
