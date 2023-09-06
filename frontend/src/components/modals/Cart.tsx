@@ -4,8 +4,7 @@ import { GrClose } from "react-icons/gr"
 import { useNavigate } from "react-router-dom";
 import { PropsCart } from "../utils/types";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
-import { Item } from "../utils/types"
-import { getOneItem } from "../../redux/features/itemsSlice";
+import { ItemCard } from "../utils/types"
 import ItemCartCard from "../ItemCartCard";
 import { colors } from "../../assets/colors";
 
@@ -17,22 +16,17 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
 
   const [isItemRemoved, setIsItemRemoved] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
-  const [item,setItem] = useState<Item>();
+  const [items,setItems] = useState<ItemCard[]>([]);
 
-  const dispatch = useAppDispatch();
-  // const { oneItem } = useAppSelector((store) => store.items)
+  const { cartItems } = useAppSelector((store) => store.cart)
+
+  console.log(cartItems)
 
 
-// /* Get One Items */
-// useEffect(() => { 
-//   dispatch(getOneItem("6554"));
-//   },[]);
-  
-// /* Put it in state */
-//   useEffect(() => {
-//     const [itemReturn] = oneItem
-//     setItem(itemReturn);
-//   },[oneItem])
+ /* Put it in state */
+  useEffect(() => {
+    setItems(cartItems)
+  },[cartItems])
 
 
   /* Close Cart */ 
@@ -48,16 +42,16 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
           <GrClose />
         </button>
       </ContainerTop>
-      {!item && <ContainerMid>
+      {items.length === 0 && <ContainerMid>
           <Image src="/images/cartEmpty.png" />
           <H2>You cart is empty</H2>
         </ContainerMid>}
-        {item && 
+        {items.length > 0 && 
         <>
         <ContainerItemCart>
-          <ItemCartCard item={item} />
-          <ItemCartCard item={item} />
-          <ItemCartCard item={item} />
+          {items.map((item) => {
+            return <ItemCartCard key={item.id} item={item} />
+          })}
         <ClearButton>Clear</ClearButton>
         </ContainerItemCart>
         <div className="d-flex flex-column py-2" style={{borderTop: "3px dashed black"}}>

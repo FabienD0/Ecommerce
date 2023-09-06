@@ -3,12 +3,15 @@ import { colors } from "../assets/colors";
 import { Item } from "./utils/types"
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../redux/app/hooks";
+import { addItem } from "../redux/features/cartSlice"
 
 interface outOfStockProps {
   outofstock: number;
 }
 
 const BigItemCard = ({product}: {product: Item}) => {
+const dispatch = useAppDispatch();
 
 return (
     <Container className="card product-card px-3 mr-5" style={{width: "95%"}}>
@@ -25,7 +28,7 @@ return (
     <ItemName className="fw-bold mb-3">{product.name}</ItemName>
     <p className="" style={{color: colors.purple}}>{product.price}</p>
     </Link>
-    {product.numInStock !== 0 && <AddToCartButton>
+    {product.numInStock !== 0 && <AddToCartButton onClick={() => dispatch(addItem(product))}>
       <div className="d-flex p-2">
       <p className="p-0 m-0">+</p>
       <AiOutlineShoppingCart />

@@ -9,6 +9,19 @@
         price: string
     }
 
+    export interface ItemCard {
+        body_location: string
+        category: string
+        companyId: number
+        id: number
+        imageSrc: string
+        name: string
+        numInStock: number
+        totalPrice: string | number
+        quantity: number
+    }
+
+
     export interface PropsSearchResult {
         searchInput: string,
         setSearchInput: (val: string) => void,

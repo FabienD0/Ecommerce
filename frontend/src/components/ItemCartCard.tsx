@@ -1,9 +1,9 @@
-import { Item } from "./utils/types"
+import { ItemCard } from "./utils/types"
 import { styled } from "styled-components"
 import { MdDelete} from "react-icons/md"
 
 interface itemProps {
-item: Item
+item: ItemCard
 }
 
 const ItemCartCard: React.FC<itemProps> = ({item}) => {
@@ -19,7 +19,7 @@ const ItemCartCard: React.FC<itemProps> = ({item}) => {
         <p>{item.name}</p>
     </div>
     <div>
-        <p className="fw-bold">{item.price}</p>
+        <p className="fw-bold">{item.totalPrice}</p>
     </div>
     <DeleteIcon />
     </StyledContainer>
@@ -50,7 +50,7 @@ const ContainerQuantity = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: -20px;
+  bottom: -30px;
   font-weight: 900;
   border-radius: 50%;
   font-size: 12px;
