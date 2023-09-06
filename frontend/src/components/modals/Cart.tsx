@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import { ItemCard } from "../utils/types"
 import ItemCartCard from "../ItemCartCard";
 import { colors } from "../../assets/colors";
+import { clearCart } from "../../redux/features/cartSlice";
 
 interface cartProps {
     $cart: boolean;
@@ -19,6 +20,7 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
   const [items,setItems] = useState<ItemCard[]>([]);
 
   const { cartItems,totalAmount } = useAppSelector((store) => store.cart)
+  const dispatch = useAppDispatch();
 
  /* Put it in state */
   useEffect(() => {
@@ -49,8 +51,8 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
           {items.map((item) => {
             return <ItemCartCard key={item.id} item={item} />
           })}
-        <ClearButton>Clear</ClearButton>
-        </ContainerItemCart>
+        <ClearButton onClick={() => dispatch(clearCart())}>Clear</ClearButton>
+        </ContainerItemCart> 
         <div className="d-flex flex-column py-2" style={{borderTop: "3px dashed black"}}>
         <div className="d-flex justify-content-between align-items-center">
         <h4 className="fw-bold">Subtotal:</h4>
