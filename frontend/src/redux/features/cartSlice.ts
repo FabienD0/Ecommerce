@@ -40,14 +40,43 @@ const cartSlice = createSlice({
             imageSrc: newItem.imageSrc,
             name: newItem.name,
             numInStock: newItem.numInStock,
-            totalPrice: newItem.price,
+            price: parseFloat(newItem.price.slice(1)),
+            totalPrice: parseFloat(newItem.price.slice(1)),
             quantity: 1
         })
     } else {
         existingItem.quantity ++;
-        existingItem.totalPrice = Number(existingItem.totalPrice) + Number(newItem.price);
+        existingItem.totalPrice = existingItem.totalPrice + parseFloat(newItem.price.slice(1));
     }
-    state.totalAmount = state.cartItems.reduce((total,item) => total + Number(item.totalPrice) * item.quantity,0)
+    state.totalAmount = state.cartItems.reduce((total,item) => total + item.totalPrice * item.quantity,0)
+    setItemFunc(state.cartItems,state.totalAmount,state.totalQuantity)
+    },
+    //Remove Item
+    removeItem(state,action) {
+    const id = action.payload;
+    const existingItem = state.cartItems.find((item) => item.id === id);
+    state.totalQuantity --;
+
+    if(existingItem?.quantity === 1) {
+        state.cartItems = state.cartItems.filter((item) => item.id !== id);
+    } else if (existingItem) {
+    existingItem.quantity --;
+    existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
+    }
+
+    state.totalAmount = state.cartItems.reduce((total,item) => total + item.price * item.quantity,0)
+    setItemFunc(state.cartItems,state.totalAmount,state.totalQuantity)
+    },
+    //Delete Item
+    deleteItem(state,action) {
+    const id = action.payload
+    const existingItem = state.cartItems.find((item) => item.id === id);
+
+    if(existingItem) {
+        state.cartItems = state.cartItems.filter((item) => item.id !== id);
+        state.totalQuantity = state.totalQuantity - existingItem.quantity;
+    }
+    state.totalAmount = state.cartItems.reduce((total,item) => total + item.price * item.quantity,0)
     setItemFunc(state.cartItems,state.totalAmount,state.totalQuantity)
     }
     },
@@ -55,7 +84,7 @@ const cartSlice = createSlice({
     }
 })
 
-export const { addItem } =
+export const { addItem, deleteItem,removeItem } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

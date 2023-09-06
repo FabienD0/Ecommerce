@@ -1,18 +1,25 @@
 import { ItemCard } from "./utils/types"
 import { styled } from "styled-components"
 import { MdDelete} from "react-icons/md"
+import { useAppDispatch } from "../redux/app/hooks"
+import { removeItem, deleteItem } from "../redux/features/cartSlice"
 
 interface itemProps {
 item: ItemCard
 }
 
+
+
 const ItemCartCard: React.FC<itemProps> = ({item}) => {
+
+const dispatch = useAppDispatch();
+
  return (
     <StyledContainer className="container d-flex">
     <div className="m-0 p-0 position-relative">
         <img src={item.imageSrc} alt="Item Image" style={{height:"2.5rem"}}/>
         <ContainerQuantity>
-            <p>x1</p>
+            <p>x{item.quantity}</p>
         </ContainerQuantity>
     </div>
     <div>
@@ -21,7 +28,7 @@ const ItemCartCard: React.FC<itemProps> = ({item}) => {
     <div>
         <p className="fw-bold">{item.totalPrice}</p>
     </div>
-    <DeleteIcon />
+    <DeleteIcon onClick={() => dispatch(deleteItem(item.id))} />
     </StyledContainer>
  )
 }

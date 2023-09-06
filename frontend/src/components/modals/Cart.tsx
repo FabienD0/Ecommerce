@@ -20,9 +20,6 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
 
   const { cartItems } = useAppSelector((store) => store.cart)
 
-  console.log(cartItems)
-
-
  /* Put it in state */
   useEffect(() => {
     setItems(cartItems)

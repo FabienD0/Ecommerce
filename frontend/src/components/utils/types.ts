@@ -17,7 +17,8 @@
         imageSrc: string
         name: string
         numInStock: number
-        totalPrice: string | number
+        price: number
+        totalPrice: number
         quantity: number
     }
 
