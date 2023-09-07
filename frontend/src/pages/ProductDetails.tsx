@@ -7,11 +7,14 @@ import { Item } from "../components/utils/types"
 import { getOneItem } from "../redux/features/itemsSlice";
 import { useParams } from "react-router-dom";
 import { AiOutlineShoppingCart, AiOutlineCheckCircle } from "react-icons/ai"
+import { addItem } from "../redux/features/cartSlice";
 
 const ProductDetails = () => {
 
 const dispatch = useAppDispatch();
 const { oneItem } = useAppSelector((store) => store.items)
+const { cartItems } = useAppSelector((store) => store.cart)
+
 
 const [item,setItem] = useState<Item>();
 const [quantitySelected,setQuantitySelected] = useState<number>(1);
@@ -21,6 +24,8 @@ const params: string | undefined = useParams().productId;
 /* Fill an array for the quantity option */
 const numInStock = item?.numInStock || 0;
 const inStock: number[] = Array.from({ length: numInStock }, (_,index) => index);
+
+const [existingItem] = cartItems.filter((itemCart) => itemCart.id === item?.id)
 
 /* Get One Items */
 useEffect(() => {
@@ -42,6 +47,13 @@ if (item){
 }
 }
 
+/* Add To Cart Function */
+const addToCart = () => {
+for(let i=0;i<quantitySelected;i++) {
+  dispatch(addItem(item))
+}
+}
+
 /* Loading State */
 if (!item) {
   return (  
@@ -56,7 +68,6 @@ return (
     <StyledContainer className="d-flex flex-row p-0 m-0">
         <Card className="container">
             <Card.Body className="d-flex align-items-center justify-content-center">
-            {/* <img src="../public/images/belkin.png" alt="item" /> */}
             <StyledImage src={item.imageSrc} alt="item" />
             </Card.Body>
         </Card>
@@ -66,13 +77,13 @@ return (
             <Card.Title className="fw-bold fs-4">{item.name}</Card.Title>
             <Card.Title className="fw-bold fs-4" style={{color: colors.purple}}>${totalPrice(quantitySelected)}</Card.Title>
             <div className="d-flex gap-3">
-      <Form.Select aria-label="select quantity" disabled={item.numInStock === 0} style={{width:"5rem"}} onChange={(e) => setQuantitySelected(parseInt(e.target.value)+1)}>
+      <Form.Select aria-label="select quantity" disabled={item.numInStock === 0 || existingItem?.quantity === item.numInStock} style={{width:"5rem"}} onChange={(e) => setQuantitySelected(parseInt(e.target.value)+1)}>
         {item.numInStock === 0 && <option>-</option>}
         {inStock.map((number,index) => {
           return <option key={index} value={index}>{index + 1}</option>
         })}
      </Form.Select>
-     <AddToCartButton className="w-auto" disabled={item.numInStock === 0}>
+     <AddToCartButton className="w-auto" disabled={item.numInStock === 0 || existingItem?.quantity === item.numInStock} onClick={() => addToCart()}>
       <div className="d-flex p-2 justify-content-center gap-2 fw-bold">
       <AiOutlineShoppingCart />
       <p className="p-0 m-0">Add to Cart</p>

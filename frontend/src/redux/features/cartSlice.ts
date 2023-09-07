@@ -45,8 +45,12 @@ const cartSlice = createSlice({
             quantity: 1
         })
     } else {
-        existingItem.quantity ++;
-        existingItem.totalPrice = existingItem.totalPrice + parseFloat(newItem.price.slice(1));
+        if(newItem.numInStock <= existingItem.quantity) {
+            return;
+        } else {
+            existingItem.quantity ++;
+            existingItem.totalPrice = existingItem.totalPrice + parseFloat(newItem.price.slice(1));
+        }
     }
     state.totalAmount = state.cartItems.reduce((total,item) => total + item.totalPrice * item.quantity,0)
     setItemFunc(state.cartItems,state.totalAmount,state.totalQuantity)

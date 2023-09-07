@@ -26,7 +26,7 @@ const dispatch = useAppDispatch();
         <p>{item.name}</p>
     </div>
     <div>
-        <p className="fw-bold">{item.totalPrice}</p>
+        <p className="fw-bold">{item.totalPrice.toFixed(2)}</p>
     </div>
     <DeleteIcon onClick={() => dispatch(deleteItem(item.id))} />
     </StyledContainer>
