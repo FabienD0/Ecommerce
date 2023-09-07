@@ -10,11 +10,14 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import SearchResult from './modals/SearchResult';
 import { PropsHeader } from './utils/types';
+import { useAppSelector } from '../redux/app/hooks';
 
 const Header: React.FC<PropsHeader> = ({setIsCart}) => {
 
   const [searchInput,setSearchInput] = useState<string>("");
   const [isSearchResultActive,setIsSearchResultActive] = useState<boolean>(false);
+
+  const { totalQuantity } = useAppSelector((store) => store.cart)
 
 
   /* When user Type on Search Bar */
@@ -93,8 +96,13 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
                     <NavDropdown.Item href="/categories/Gaming" className='fw-bold my-1'>Gaming</NavDropdown.Item>
                   </NavDropdown>
                   <Nav.Link href="/brands" className="mx-2 fw-bold">Brands</Nav.Link>
-                    <button className="mx-2 fw-bold"style={{all:"unset"}} onClick={() => setIsCart(true)}>
+                    <button className="mx-2 fw-bold"style={{all:"unset",position:"relative"}} onClick={() => setIsCart(true)}>
                     <FaShoppingCartStyled />
+                    {totalQuantity > 0 && (
+              <ItemNotif>
+                <p style={{all:"unset"}}>{totalQuantity}</p>
+              </ItemNotif>
+            )}
                     </button>
                 </Nav>
               </Offcanvas.Body>
@@ -145,3 +153,18 @@ transition: all 200ms;
   opacity: 1;
 }
 `
+
+const ItemNotif = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: #ff5f5f;
+  top: -5px;
+  right: -5px;
+  height: 0.9rem;
+  width: 0.9rem;
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 10px;
+`;

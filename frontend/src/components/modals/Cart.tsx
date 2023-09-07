@@ -19,7 +19,7 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [items,setItems] = useState<ItemCard[]>([]);
 
-  const { cartItems,totalAmount } = useAppSelector((store) => store.cart)
+  const { cartItems,totalAmount, totalQuantity } = useAppSelector((store) => store.cart)
   const dispatch = useAppDispatch();
 
  /* Put it in state */
@@ -36,7 +36,7 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
   return (
     <Container $cart={isCart}>
       <ContainerTop>
-        <H2 className="fw-bold">Shopping Cart(2)</H2>
+        <H2 className="fw-bold">{`Shopping Cart (${totalQuantity})`}</H2>
         <button style={{ all: "unset",cursor:"pointer" }} onClick={handleClose}>
           <GrClose />
         </button>
