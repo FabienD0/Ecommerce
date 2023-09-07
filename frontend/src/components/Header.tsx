@@ -34,6 +34,15 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
     }
   }, [searchInput]);
 
+  /* Notif Quantity on Cart Icon */
+  const getTotalQuantity = () => {
+    if (totalQuantity >= 99) {
+      return 99
+    } else {
+      return totalQuantity
+    }
+  }
+
     return (
 <>
 <StyledNavBar expand="lg" className="navbar mb-3 py-3" fixed='top'>
@@ -100,7 +109,7 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
                     <FaShoppingCartStyled />
                     {totalQuantity > 0 && (
               <ItemNotif>
-                <p style={{all:"unset"}}>{totalQuantity}</p>
+                <p style={{all:"unset"}}>{getTotalQuantity()}</p>
               </ItemNotif>
             )}
                     </button>

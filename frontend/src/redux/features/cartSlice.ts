@@ -29,9 +29,9 @@ const cartSlice = createSlice({
     addItem(state,action) {
         const newItem = action.payload;
         const existingItem = state.cartItems.find((item) => item.id === newItem.id);
-        state.totalQuantity ++;
     
     if(!existingItem) {
+        state.totalQuantity ++;
         state.cartItems.push({
             body_location: newItem.body_location,
             category: newItem.category,
@@ -48,6 +48,7 @@ const cartSlice = createSlice({
         if(newItem.numInStock <= existingItem.quantity) {
             return;
         } else {
+            state.totalQuantity ++;
             existingItem.quantity ++;
             existingItem.totalPrice = existingItem.totalPrice + parseFloat(newItem.price.slice(1));
         }

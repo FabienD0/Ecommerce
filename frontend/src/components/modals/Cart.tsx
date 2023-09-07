@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr"
-import { useNavigate } from "react-router-dom";
 import { PropsCart } from "../utils/types";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import { ItemCard } from "../utils/types"
@@ -15,8 +14,6 @@ interface cartProps {
 
 const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
 
-  const [isItemRemoved, setIsItemRemoved] = useState(false);
-  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [items,setItems] = useState<ItemCard[]>([]);
 
   const { cartItems,totalAmount, totalQuantity } = useAppSelector((store) => store.cart)
@@ -56,7 +53,7 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
         <div className="d-flex flex-column py-2" style={{borderTop: "3px dashed black"}}>
         <div className="d-flex justify-content-between align-items-center">
         <h4 className="fw-bold">Subtotal:</h4>
-          <h4 className="fw-bold" style={{color: colors.purple,textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)"}}>{totalAmount.toFixed(2)}</h4>
+          <h4 className="fw-bold" style={{color: colors.purple,textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)"}}>{totalAmount.toFixed(2)}<span style={{fontSize:12}}>$</span></h4>
         </div>
           <CheckoutButton>Go to Checkout</CheckoutButton>
         </div>
