@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import { Item } from "../utils/types"
 import { getItemsByName } from "../../redux/features/itemsSlice";
 import { Link } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
+import { Nav, Spinner } from "react-bootstrap";
 import { colors } from "../../assets/colors";
 
 const SearchResult: React.FC<PropsSearchResult>  = ({
@@ -67,7 +67,7 @@ return (
     return (
       <ContainerItemSearched
         key={item.id}
-        to={`/product/${item.id}`}
+        href={`/product/${item.id}`}
         onClick={handleClick}
       >
         <ItemImage src={item.imageSrc} />
@@ -93,8 +93,9 @@ const Container = styled.div`
   overflow: auto;
   top: 40px;
 
-  @media (max-width: 800px) {
-    width: calc(100% + 3rem);
+  @media (max-width: 991px) {
+  width: 100%;
+  min-height: 65vh;
   }
 `;
 
@@ -105,7 +106,7 @@ const DivLoading = styled.div`
   height: 5rem;
 `;
 
-const ContainerItemSearched = styled(Link)`
+const ContainerItemSearched = styled(Nav.Link)`
   all: unset;
   padding: 1rem 1rem;
   max-height: 10rem;

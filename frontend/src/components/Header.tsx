@@ -17,12 +17,13 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
   const [searchInput,setSearchInput] = useState<string>("");
   const [isSearchResultActive,setIsSearchResultActive] = useState<boolean>(false);
 
+
   const { totalQuantity } = useAppSelector((store) => store.cart)
 
 
   /* When user Type on Search Bar */
   const handleSearchInput = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
+      setSearchInput(e.target.value);
   }
 
   /* If more than 4 character, modal search bar open */
@@ -63,13 +64,13 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
               {/* SideBar Header */}
               <Offcanvas.Header closeButton className="border-bottom">
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`} >
-                  Bootstrap Navbar
+                  Menu
                 </Offcanvas.Title>
               </Offcanvas.Header>
               {/* SideBar Body */}
               <Offcanvas.Body>
               {/* Searchbar */}
-              <Form className="d-flex flex-grow-1 justify-content-center">
+              <Form className="d-flex d-none d-lg-block flex-grow-1 justify-content-center">
               <div className='container d-flex justify-content-center' style={{position:"relative"}}>
               <SearchBar
                 type="search"
@@ -89,9 +90,9 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
                 </div>
                 </Form>
 
-                <Nav className=" align-items-center fs-5">
                     {/* Dropdown */}
-                    <NavDropdown
+                <Nav className=" align-items-center fs-5">
+                    <NavDropdownStyled
                     title="Categories"
                     id={`offcanvasNavbarDropdown-expand-lg`}
                     className="mx-2 fw-bold"
@@ -103,9 +104,30 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
                     <NavDropdown.Item href="/categories/Industrial" className='fw-bold my-1'>Industrial</NavDropdown.Item>
                     <NavDropdown.Item href="/categories/Pets and Animals" className='fw-bold my-1'>Pets and Animals</NavDropdown.Item>
                     <NavDropdown.Item href="/categories/Gaming" className='fw-bold my-1'>Gaming</NavDropdown.Item>
-                  </NavDropdown>
-                  <Nav.Link href="/brands" className="mx-2 fw-bold">Brands</Nav.Link>
-                    <button className="mx-2 fw-bold"style={{all:"unset",position:"relative"}} onClick={() => setIsCart(true)}>
+                  </NavDropdownStyled>
+                  <NavLinkStyled href="/brands" className="mx-2 fw-bold">Brands</NavLinkStyled>
+                  <NavLinkStyled href="/checkout" className="mx-2 fw-bold d-lg-none">{`Cart (${getTotalQuantity()})`}</NavLinkStyled>
+              {/* Searchbar Mobile*/}
+              <Form className="d-lg-none my-2 w-100">
+              <div style={{position:"relative"}}>
+              <SearchBar
+                type="search"
+                placeholder="Search"
+                value={searchInput}
+                className="w-100"
+                aria-label="Search"
+                onChange={handleSearchInput}
+                />
+                                {isSearchResultActive && (
+            <SearchResult
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
+              isSearchResultActive={isSearchResultActive}
+              setIsSearchResultActive={setIsSearchResultActive}
+            />)}
+                </div>
+                </Form>
+                    <button className="mx-2 fw-bold d-none d-lg-block"style={{all:"unset",position:"relative"}} onClick={() => setIsCart(true)}>
                     <FaShoppingCartStyled />
                     {totalQuantity > 0 && (
               <ItemNotif>
@@ -177,3 +199,16 @@ const ItemNotif = styled.div`
   font-weight: 900;
   font-size: 10px;
 `;
+
+const NavDropdownStyled = styled(NavDropdown)`
+
+@media (max-width: 991px) {
+  width: 100%;
+  }
+`
+
+const NavLinkStyled = styled(Nav.Link)`
+@media (max-width: 991px) {
+  width: 100%;
+  }
+`
