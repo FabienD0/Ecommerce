@@ -31,7 +31,7 @@ return (
       {sortedLetters.map((letter: string) => (
         <div key={letter}>
           <h2 className="border-bottom border-4 fw-bold">{letter}</h2>
-          <div className="d-flex">
+          <div className="d-flex flex-wrap">
           {groupedCompanies[letter].map((company: Company) => (
             <NavStyled href={`/brand/${company._id}`} key={company._id} className="m-2">
               {company.name}
