@@ -55,7 +55,7 @@ const Cart: React.FC<PropsCart> = ({ isCart, setIsCart }) => {
         <h4 className="fw-bold">Subtotal:</h4>
           <h4 className="fw-bold" style={{color: colors.purple,textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)"}}>{totalAmount.toFixed(2)}<span style={{fontSize:12}}>$</span></h4>
         </div>
-          <CheckoutButton>Go to Checkout</CheckoutButton>
+          <CheckoutButton href="/checkout">Go to Checkout</CheckoutButton>
         </div>
         </>}
     </Container>
@@ -134,7 +134,7 @@ transition: opacity .2s ease-in-out;
 }
 `
 
-const CheckoutButton = styled.button`
+const CheckoutButton = styled.a`
   all: unset;
   width: 12rem;
   text-align: center;

@@ -11,6 +11,7 @@ import Cart from "./components/modals/Cart"
 import Category from "./pages/Category"
 import Brands from "./pages/Brands"
 import BrandsCategory from "./pages/BrandsCategory"
+import Checkout from "./pages/Checkout"
 
 export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/categories/:category" element={<Category />} />
         <Route path="/brands" element={<Brands />} />
         <Route path="/brand/:brandId" element={<BrandsCategory />} />
+        <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </Main>
       <Footer />
