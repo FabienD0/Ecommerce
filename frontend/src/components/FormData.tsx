@@ -28,8 +28,8 @@ const FormData = () => {
       }
 
     return (
-        <StyledForm onSubmit={handleSubmit}>
-          <DivLabelInput>
+        <form className="d-flex flex-column gap-3 rounded p-3 w-50" onSubmit={handleSubmit}>
+          <div className="d-flex justify-content-between align-items-center">
             <label htmlFor={"fname"}>First Name:</label>
             <StyledInput
               type={"text"}
@@ -38,8 +38,8 @@ const FormData = () => {
               onChange={handleChange}
               required
             />
-          </DivLabelInput>
-          <DivLabelInput>
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
             <label htmlFor={"lname"}>Last Name:</label>
             <StyledInput
               type={"text"}
@@ -48,8 +48,8 @@ const FormData = () => {
               onChange={handleChange}
               required
             />
-          </DivLabelInput>
-          <DivLabelInput>
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
             <label htmlFor={"address"}>Address:</label>
             <StyledInput
               type={"address"}
@@ -58,8 +58,10 @@ const FormData = () => {
               onChange={handleChange}
               required
             />
-          </DivLabelInput>
-          <DivLabelInput>
+          </div>
+          
+          <div className="d-flex justify-content-between align-items-center">
+            
             <label htmlFor={"email"}>E-mail:</label>
             <StyledInput
               type={"email"}
@@ -68,8 +70,9 @@ const FormData = () => {
               onChange={handleChange}
               required
             />
-          </DivLabelInput>
-          <DivLabelInput>
+
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
             <label htmlFor={"cardNumber"}>Card Number:</label>
             <StyledInput
               type={"text"}
@@ -79,67 +82,50 @@ const FormData = () => {
               onChange={handleChange}
               required
             />
-          </DivLabelInput>
-          <DivLabelInput>
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
             <label htmlFor={"expiry"}>Expiry:</label>
             <StyledInput
-              type={"text"}
+              type={"number"}
               placeholder={"MMYY"}
               name={"expiry"}
               id={"expiry"}
               onChange={handleChange}
               required
             />
-          </DivLabelInput>
+          </div>
           <ContainerError>{<p>{errorMessage}</p>}</ContainerError>
           <ContainerPrice>
-            <ContainerText>
-              <Title>Subtotal </Title>
-              <Price>${totalAmount.toFixed(2)}</Price>
-            </ContainerText>
-            <ContainerText>
-              <Title>Taxes </Title>
-              <Price>
+            <div className="d-flex justify-content-between fs-5">
+              <p className="opacity-50">Subtotal:</p>
+              <p className="fw-bold">${totalAmount.toFixed(2)}</p>
+            </div>
+            <div className="d-flex justify-content-between fs-5" style={{all:"unset"}}>
+              <p className="opacity-50">Taxes:</p>
+              <p className="fw-bold">
                 ${(totalAmount * 0.05 + totalAmount * 0.09975).toFixed(2)}
-              </Price>
-            </ContainerText>
-            <ContainerText>
-              <Title>Total Amount </Title>
-              <Price>
+              </p>
+            </div>
+            <div className="d-flex justify-content-between fs-5 pt-3">
+              <p className="opacity-50">Total Amount:</p>
+              <p className="fw-bold">
                 $
                 {(totalAmount + (totalAmount * 0.05 + totalAmount * 0.09975)).toFixed(
                   2
                 )}
-              </Price>
-            </ContainerText>
+              </p>
+            </div>
           </ContainerPrice>
           <StyledSubmit type="submit">Place Order</StyledSubmit>
-        </StyledForm>
+        </form>
       );
 
 }
 
 export default FormData
 
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  border-radius: 5px;
-  padding-left: 2rem;
-  width: 80%;
-`;
-
-const DivLabelInput = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  align-items: center;
-  font-size: 20px;
-`;
-
 const StyledInput = styled.input`
-  width: 300px;
+  width: 70%;
   border-radius: 3px;
   border: none;
   box-shadow: 0.5px 0.5px 6px lightgray;
@@ -157,28 +143,10 @@ const ContainerError = styled.div`
 `;
 
 const ContainerPrice = styled.div`
-  width: 100%;
-  height: 10rem;
 
   & div:nth-child(2) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
-    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.6) !important;
   }
-`;
-
-const ContainerText = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 0rem;
-  font-size: 1.2rem;
-`;
-
-const Title = styled.p`
-  opacity: 0.6;
-`;
-
-const Price = styled.p`
-  font-weight: 900;
 `;
 
 const StyledSubmit = styled.button`

@@ -24,24 +24,10 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
       dispatch(modifyQuantity(payload))
     }
 }
-// const totalPriceItem = (quantity:number):number | undefined => {
-//     if (item){
-//       const price: number = parseFloat(item.price.slice(1))
-//       return parseFloat((quantity * price).toFixed(2))
-//     }
-//     }
-
-//     /* Add To Cart Function */
-// const addToCart = () => {
-//     for(let i=0;i<quantitySelected;i++) {
-//       dispatch(addItem(item))
-//     }
-//     }
-
 
     return (
         <Container className="d-flex" >
-        <div className="overflow-auto p-3 m-0" style={{borderRight: "1px solid lightgray"}}>
+        <ContainerItem className="overflow-auto p-3 m-0">
           {cartItems.map((product) => {
     const inStock: number[] = Array.from({ length: product.numInStock }, (_,index) => index);
             return (
@@ -56,14 +42,14 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
         })}
      </Form.Select>
      <div className="d-flex jusity-content-center align-items-center gap-1">
-     <p className="fw-bold" style={{all:"unset"}}>${product.price}</p>
+     <p className="fw-bold" style={{all:"unset"}}>${(product.price * product.quantity).toFixed(2)}</p>
      <DeleteIcon onClick={() => dispatch(deleteItem(product.id))} />
      </div>
      </div>
               </div>
             );
           })}
-        </div>
+        </ContainerItem>
         <FormData />
       </Container>
     )
@@ -76,7 +62,21 @@ const Container = styled.div`
   background-color: white;
   margin-bottom: 4rem;
   max-height: 65vh;
+
+  /* @media (max-width: 991px) {
+    flex-direction: column;
+  } */
 `;
+
+const ContainerItem = styled.div`
+border-right: "1px solid lightgray";
+
+/* @media (max-width: 991px) {
+    display: flex;
+    width: 80%;
+  } */
+`
+
 
 const DeleteIcon = styled(MdDelete)`
   font-size: 1.3rem;
