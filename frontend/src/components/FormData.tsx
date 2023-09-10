@@ -127,6 +127,7 @@ const StyledForm = styled.form`
   gap: 1.5rem;
   border-radius: 5px;
   padding-left: 2rem;
+  width: 80%;
 `;
 
 const DivLabelInput = styled.div`

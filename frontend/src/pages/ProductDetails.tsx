@@ -79,7 +79,7 @@ return (
             <div className="d-flex gap-3">
       <Form.Select aria-label="select quantity" disabled={item.numInStock === 0 || existingItem?.quantity === item.numInStock} style={{width:"5rem"}} onChange={(e) => setQuantitySelected(parseInt(e.target.value)+1)}>
         {item.numInStock === 0 && <option>-</option>}
-        {inStock.map((number,index) => {
+        {inStock.map((_,index) => {
           return <option key={index} value={index}>{index + 1}</option>
         })}
      </Form.Select>

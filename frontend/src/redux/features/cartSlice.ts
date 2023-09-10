@@ -90,13 +90,27 @@ const cartSlice = createSlice({
        state.totalAmount = 0;
        state.totalQuantity = 0; 
        setItemFunc(state.cartItems,state.totalAmount,state.totalQuantity)
-    }
+    },
+    //Modify Quantity Item
+    modifyQuantity(state,action) {
+        const {id} = action.payload.product
+        const quantity = action.payload.quantity        
+        const existingItem = state.cartItems.find((item) => item.id === id);
+    
+        if(existingItem) {
+            state.totalQuantity = state.totalQuantity - existingItem.quantity
+            existingItem.quantity = quantity
+            state.totalQuantity = state.totalQuantity + existingItem.quantity;
+        }
+        state.totalAmount = state.cartItems.reduce((total,item) => total + item.price * item.quantity,0)
+        setItemFunc(state.cartItems,state.totalAmount,state.totalQuantity)
+        },
     },
     extraReducers: {
     }
 })
 
-export const { addItem, deleteItem,removeItem,clearCart } =
+export const { addItem, deleteItem,removeItem,clearCart,modifyQuantity } =
   cartSlice.actions;
 
 export default cartSlice.reducer;
