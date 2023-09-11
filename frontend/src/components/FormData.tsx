@@ -28,8 +28,8 @@ const FormData = () => {
       }
 
     return (
-        <form className="d-flex flex-column gap-3 rounded p-3 w-50" onSubmit={handleSubmit}>
-          <div className="d-flex justify-content-between align-items-center">
+        <StyledForm className="d-flex flex-column gap-3 rounded p-3 w-50" onSubmit={handleSubmit}>
+          <div className="d-flex justify-content-between align-items-center mt-2">
             <label htmlFor={"fname"}>First Name:</label>
             <StyledInput
               type={"text"}
@@ -95,7 +95,7 @@ const FormData = () => {
             />
           </div>
           <ContainerError>{<p>{errorMessage}</p>}</ContainerError>
-          <ContainerPrice>
+          <ContainerPrice className="d-flex justify-content-end flex-column h-100">
             <div className="d-flex justify-content-between fs-5">
               <p className="opacity-50">Subtotal:</p>
               <p className="fw-bold">${totalAmount.toFixed(2)}</p>
@@ -117,12 +117,18 @@ const FormData = () => {
             </div>
           </ContainerPrice>
           <StyledSubmit type="submit">Place Order</StyledSubmit>
-        </form>
+        </StyledForm>
       );
 
 }
 
 export default FormData
+
+const StyledForm = styled.form`
+  @media (max-width: 450px) {
+    width: 100% !important;
+  }
+`
 
 const StyledInput = styled.input`
   width: 70%;
@@ -143,7 +149,6 @@ const ContainerError = styled.div`
 `;
 
 const ContainerPrice = styled.div`
-
   & div:nth-child(2) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.6) !important;
   }

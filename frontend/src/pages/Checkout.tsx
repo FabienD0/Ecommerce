@@ -26,8 +26,8 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
 }
 
     return (
-        <Container className="d-flex" >
-        <ContainerItem className="overflow-auto p-3 m-0">
+        <Container className="d-flex container" >
+        <ContainerItem className="overflow-auto p-3 m-0 w-50">
           {cartItems.map((product) => {
     const inStock: number[] = Array.from({ length: product.numInStock }, (_,index) => index);
             return (
@@ -63,18 +63,17 @@ const Container = styled.div`
   margin-bottom: 4rem;
   max-height: 65vh;
 
-  /* @media (max-width: 991px) {
-    flex-direction: column;
-  } */
+  @media (max-width: 450px) {
+    max-height: 100vh;
+  }
 `;
 
 const ContainerItem = styled.div`
 border-right: "1px solid lightgray";
 
-/* @media (max-width: 991px) {
-    display: flex;
-    width: 80%;
-  } */
+@media (max-width: 450px) {
+  display: none;
+  }
 `
 
 
