@@ -15,7 +15,7 @@ const FormData = () => {
         expiry: "",
         cart: cartItems,
       });
-      const [errorMessage, setErrorMessage] = useState();
+      const [errorMessage, setErrorMessage] = useState<string>("");
     
       /* Handle When write on the Form */
       const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -23,10 +23,15 @@ const FormData = () => {
       };
 
       /* Handle Place Order */
-      const handleSubmit = () => {
-        console.log("sent")
+      const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if(cartItems.length !== 0) {
+          console.log("sent")
+        } else {
+          setErrorMessage("Your Cart is Empty")
+        }
       }
-
+      
     return (
         <StyledForm className="d-flex flex-column gap-3 rounded p-3 w-50" onSubmit={handleSubmit}>
           <div className="d-flex justify-content-between align-items-center mt-2">
@@ -75,7 +80,7 @@ const FormData = () => {
           <div className="d-flex justify-content-between align-items-center">
             <label htmlFor={"cardNumber"}>Card Number:</label>
             <StyledInput
-              type={"text"}
+              type={"number"}
               placeholder={"0000000000000000"}
               name={"cardNumber"}
               id={"cardNumber"}
@@ -116,7 +121,7 @@ const FormData = () => {
               </p>
             </div>
           </ContainerPrice>
-          <StyledSubmit type="submit">Place Order</StyledSubmit>
+          <StyledSubmit disabled={cartItems.length === 0} type="submit">Place Order</StyledSubmit>
         </StyledForm>
       );
 
@@ -125,7 +130,7 @@ const FormData = () => {
 export default FormData
 
 const StyledForm = styled.form`
-  @media (max-width: 450px) {
+  @media (max-width: 766px) {
     width: 100% !important;
   }
 `
@@ -169,5 +174,10 @@ const StyledSubmit = styled.button`
     background-color: white;
     cursor: pointer;
     letter-spacing: 0.2rem;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 `;

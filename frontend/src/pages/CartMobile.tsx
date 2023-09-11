@@ -1,15 +1,14 @@
 import styled from "styled-components"
 import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
-import FormData from "../components/FormData";
-import { useState } from "react"
 import { Form } from "react-bootstrap";
 import { modifyQuantity, deleteItem } from "../redux/features/cartSlice"
 import { MdDelete} from "react-icons/md"
 import { ItemCard } from "../components/utils/types"
+import { colors } from "../assets/colors";
 
-const Checkout = () => {
+const CartMobile = () => {
 
-const { cartItems } = useAppSelector((store) => store.cart)
+const { cartItems,totalAmount } = useAppSelector((store) => store.cart)
 
 
 const dispatch = useAppDispatch();
@@ -26,8 +25,9 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
 }
 
     return (
+        <div className="container">
         <Container className="d-flex container" >
-        <ContainerItem className="overflow-auto p-3 m-0 w-50">
+        <ContainerItem className="overflow-auto p-3 m-0 w-100">
           {cartItems.map((product) => {
     const inStock: number[] = Array.from({ length: product.numInStock }, (_,index) => index);
             return (
@@ -50,30 +50,28 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
             );
           })}
         </ContainerItem>
-        <FormData />
       </Container>
+      <div className="d-flex align-items-center justify-content-center mt-4 flex-column">
+      <div className="d-flex justify-content-between align-items-center gap-2">
+        <h4 className="fw-bold">Subtotal:</h4>
+          <h4 className="fw-bold" style={{color: colors.purple,textShadow: "2px 4px 3px rgba(0, 0, 0, 0.2)"}}>{totalAmount.toFixed(2)}<span style={{fontSize:12}}>$</span></h4>
+        </div>
+      <CheckoutButton href="/checkout">Go to Checkout</CheckoutButton>
+      </div>
+      </div>
     )
 }
 
-export default Checkout
+export default CartMobile
 
 const Container = styled.div`
   box-shadow: 2px 2px 15px lightgray;
   background-color: white;
-  margin-bottom: 4rem;
-  max-height: 65vh;
-
-  @media (max-width: 766px) {
-    max-height: 100vh;
-  }
+  max-height: 55vh;
 `;
 
 const ContainerItem = styled.div`
 border-right: "1px solid lightgray";
-
-@media (max-width: 766px) {
-  display: none;
-  }
 `
 
 
@@ -86,5 +84,26 @@ const DeleteIcon = styled(MdDelete)`
     opacity: 1;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s;
+  }
+`
+
+const CheckoutButton = styled.a`
+  all: unset;
+  text-align: center;
+  font-weight: 700;
+  border: 2px solid black;
+  letter-spacing: 0.05em;
+  color: white;
+  background-color: black;
+  padding: 0.8rem 0;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
   }
 `
