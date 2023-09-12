@@ -26,7 +26,7 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
 }
 
     return (
-        <Container className="d-flex container" >
+        <Container className="d-flex container m-3" >
         <ContainerItem className="overflow-auto p-3 m-0 w-50">
           {cartItems.map((product) => {
     const inStock: number[] = Array.from({ length: product.numInStock }, (_,index) => index);

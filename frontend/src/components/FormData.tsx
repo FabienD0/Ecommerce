@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import { useState } from "react"
-import { useAppSelector } from "../redux/app/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../redux/features/cartSlice";
+import { URL } from "../App"
 
 const FormData = () => {
 
     const {cartItems, totalAmount} = useAppSelector((store) => store.cart)
+    const dispatch = useAppDispatch();
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         fname: "",
@@ -25,10 +31,34 @@ const FormData = () => {
       /* Handle Place Order */
       const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(cartItems.length !== 0) {
-          console.log("sent")
+        if(formData.expiry.length > 4) {
+          setErrorMessage("Expiry date is 4 Numbers (0825)")
         } else {
-          setErrorMessage("Your Cart is Empty")
+          if(cartItems.length !== 0) {
+            fetch(`${URL}/checkout`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.status === 200) {
+                  navigate(`/order/${data.data._id}`);
+                  dispatch(clearCart());
+                  setErrorMessage("");
+                } else {
+                  setErrorMessage(data.message);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } else {
+            setErrorMessage("Your Cart is Empty")
+          }
         }
       }
       
@@ -150,7 +180,6 @@ const StyledInput = styled.input`
 const ContainerError = styled.div`
   text-align: center;
   color: #ff7070;
-  opacity: 0.8;
 `;
 
 const ContainerPrice = styled.div`
