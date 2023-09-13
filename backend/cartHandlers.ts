@@ -7,10 +7,9 @@ const { v4: uuidv4 } = require("uuid");
 /* Get All Items */
 const checkoutCart = async (req: Request, res: Response) => {
 
-const { fname,lname,address,email,cardNumber,expiry,cart } = req.body.cart;
+const { fname,lname,address,email,cardNumber,expiry,cart } = req.body;
 
 //SQL Data for Customers
-const valuesCustomer = [uuidv4(), fname, lname, address, email, cardNumber, expiry];
 const insertCustomer = `INSERT INTO customers (id, firstName, lastName, address, email, cardNumber, expiry)
 VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
@@ -82,6 +81,9 @@ try {
 
   //If customer doesn't exist, add customer then add order with customer ID
     } else { 
+
+      const valuesCustomer = [uuidv4(), fname, lname, address, email, cardNumber, expiry];
+
       connection.query(insertCustomer,valuesCustomer, (_err:Error, insertCustomerRow:RowDataPacket[]) => {
         if (_err) {
           res.status(500).json({ status: 500, message: "Error adding customer" });
@@ -92,7 +94,7 @@ try {
 
           //loop through the cart
           for(let i=0;i<cart.length;i++) {
-          const valuesItems = [cart.id,valuesCustomer[0].id,cart.quantity,cart.price];
+          const valuesItems = [cart[i].id,valuesCustomer[0],cart[i].quantity,cart[i].price];
       
         // Create a promise for each query.
         const queryPromise = new Promise((resolve, reject) => {
