@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../redux/features/cartSlice";
@@ -22,14 +22,20 @@ const FormData = () => {
         cart: cartItems,
       });
       const [errorMessage, setErrorMessage] = useState<string>("");
-    
+
       /* Handle When write on the Form */
       const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
 
+      /* Change quantity in cartItems */
+      useEffect(() => {
+        setFormData({...formData, cart: cartItems});
+      },[cartItems])
+
       /* Handle Place Order */
       const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+        console.log(formData)
         e.preventDefault();
         if(formData.expiry.length > 4) {
           setErrorMessage("Expiry date is 4 Numbers (0825)")
@@ -46,7 +52,7 @@ const FormData = () => {
               .then((res) => res.json())
               .then((data) => {
                 if (data.status === 200) {
-                  navigate(`/order/${data.data._id}`);
+                  navigate(`/order/${data.data.id}`);
                   dispatch(clearCart());
                   setErrorMessage("");
                 } else {
