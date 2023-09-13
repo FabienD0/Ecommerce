@@ -19,6 +19,29 @@ const insertItems = `INSERT INTO orders (itemId, customerId, quantity, price)
 VALUES (?, ?, ?, ?)`;
 
 
+/* Function to modify QUANTITY in INVENTORY items */
+const changeQuantity = async (itemId: number, quantity: number) => {
+
+  const sql = 'UPDATE items SET numInStock = numInStock - ? WHERE id = ?';
+  const values = [quantity,itemId];
+
+  try {
+    const connection = await mysql.createConnection(process.env.DATABASE_URL);
+    connection.query(sql,values, (_err:Error, rows: any) => {
+      if(_err) {
+        console.log(_err);
+      } else { 
+        console.log(rows)
+      }
+    });
+    connection.end()
+    console.log("Connection Ended")
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
 //Check if existing existing user with Email, if Not Write it on the DB;
 try {
   const connection = await mysql.createConnection(process.env.DATABASE_URL);
@@ -32,13 +55,13 @@ try {
     //loop through the cart
     for(let i=0;i<cart.length;i++) {
     const valuesItems = [cart[i].id,rows[0].id,cart[i].quantity,cart[i].price];
-
   // Create a promise for each query.
   const queryPromise = new Promise((resolve, reject) => {
     connection.query(insertItems, valuesItems, (err: Error, insertRow: RowDataPacket[]) => {
       if (err) {
         reject(err);
       } else {
+        changeQuantity(cart[i].id,cart[i].quantity)
         resolve(insertRow);
       }
     });
@@ -55,9 +78,6 @@ try {
     res.status(500).json({ status: 500, err: err, message: "Error adding orders" });
     connection.end();
   });
-
-
-
 
 
   //If customer doesn't exist, add customer then add order with customer ID
@@ -80,6 +100,7 @@ try {
             if (err) {
               reject(err);
             } else {
+              changeQuantity(cart[i].id,cart[i].quantity)
               resolve(insertRow);
             }
           });
