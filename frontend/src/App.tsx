@@ -13,6 +13,7 @@ import Brands from "./pages/Brands"
 import BrandsCategory from "./pages/BrandsCategory"
 import Checkout from "./pages/Checkout"
 import CartMobile from "./pages/CartMobile"
+import CheckoutConfirmation from "./pages/CheckoutConfirmation"
 
 export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/brand/:brandId" element={<BrandsCategory />} />
         <Route path="/cartMobile" element={<CartMobile />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order/:orderId" element={<CheckoutConfirmation />} />
         </Routes>
       </Main>
       <Footer />

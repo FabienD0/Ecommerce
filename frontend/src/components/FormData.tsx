@@ -28,7 +28,7 @@ const FormData = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
 
-      /* Change quantity in cartItems */
+      /* Update formData of cart when cartItems change */
       useEffect(() => {
         setFormData({...formData, cart: cartItems});
       },[cartItems])
@@ -51,8 +51,9 @@ const FormData = () => {
             })
               .then((res) => res.json())
               .then((data) => {
+                console.log(data);
                 if (data.status === 200) {
-                  navigate(`/order/${data.data.id}`);
+                  navigate(`/order/${data.orderId}`);
                   dispatch(clearCart());
                   setErrorMessage("");
                 } else {
