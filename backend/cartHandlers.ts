@@ -130,6 +130,28 @@ try {
 }
     };
 
+
+/* Get Order By ID */
+const getOrderById = async (req: Request, res: Response) => {
+
+  const { orderId } = req.params;
+
+  try {
+    const connection = await mysql.createConnection(process.env.DATABASE_URL);
+    connection.query(`SELECT * FROM orders WHERE orderId = "${orderId}"`, (_err:Error, rows:RowDataPacket[]) => {
+      if(_err) {
+        res.status(500).json({ status: 500, message: `error: ${_err.message}` });
+      } else { 
+        res.status(200).json({status:200,rows:rows,message:"success"})
+      }
+    });
+    connection.end()
+    console.log("Connection Ended")
+  } catch (err) {
+    console.log(err)
+  }
+}
+
     module.exports = {
-        checkoutCart
+        checkoutCart, getOrderById
         };

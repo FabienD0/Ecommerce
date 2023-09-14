@@ -16,7 +16,7 @@ const {
     getItemsByBrands
 } = require("./itemsHandlers")
 
-const { checkoutCart } = require("./cartHandlers");
+const { checkoutCart,getOrderById } = require("./cartHandlers");
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
@@ -48,6 +48,7 @@ app.use(function (req:Request, res:Response, next:NextFunction) {
   app.get("/getItemsByBrands/:brand",getItemsByBrands)
   //Cart Endpoints
   app.post("/checkout",checkoutCart)
+  app.get("/getOrderById/:orderId",getOrderById)
 
   app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
