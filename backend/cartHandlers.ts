@@ -14,8 +14,8 @@ const insertCustomer = `INSERT INTO customers (id, firstName, lastName, address,
 VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
 //SQL Data for Orders
-const insertItems = `INSERT INTO orders (itemId, customerId, quantity, price)
-VALUES (?, ?, ?, ?)`;
+const insertItems = `INSERT INTO orders (orderId, itemId, customerId, quantity, price)
+VALUES (?,?, ?, ?, ?)`;
 
 
 /* Function to modify QUANTITY in INVENTORY items */
@@ -50,10 +50,11 @@ try {
     if(rows.length > 0) {
     
     const queryPromises = [];
+    const createOrderId = uuidv4();
 
     //loop through the cart
     for(let i=0;i<cart.length;i++) {
-    const valuesItems = [cart[i].id,rows[0].id,cart[i].quantity,cart[i].price];
+      const valuesItems = [createOrderId,cart[i].id,rows[0].id,cart[i].quantity,cart[i].price];
   // Create a promise for each query.
   const queryPromise = new Promise((resolve, reject) => {
     connection.query(insertItems, valuesItems, (err: Error, insertRow: RowDataPacket[]) => {
@@ -69,8 +70,8 @@ try {
   }
   // Execute all queries and handle the results.
   Promise.all(queryPromises)
-  .then((results) => {
-    res.status(200).json({ status: 200, rows: results, message: "Orders added" });
+  .then(() => {
+    res.status(200).json({ status: 200,orderId: createOrderId, message: "Orders added" });
     connection.end();
   })
   .catch((err) => {
@@ -91,10 +92,11 @@ try {
         } else {
 
           const queryPromises = [];
+          const createOrderId = uuidv4();
 
           //loop through the cart
           for(let i=0;i<cart.length;i++) {
-          const valuesItems = [cart[i].id,valuesCustomer[0],cart[i].quantity,cart[i].price];
+          const valuesItems = [createOrderId,cart[i].id,valuesCustomer[0],cart[i].quantity,cart[i].price];
       
         // Create a promise for each query.
         const queryPromise = new Promise((resolve, reject) => {
@@ -111,8 +113,8 @@ try {
         }
         // Execute all queries and handle the results.
         Promise.all(queryPromises)
-        .then((results) => {
-          res.status(200).json({ status: 200, rows: results, message: "Orders & Customer added" });
+        .then(() => {
+          res.status(200).json({ status: 200,orderId: createOrderId, message: "Orders & Customer added" });
           connection.end();
         })
         .catch((err) => {
