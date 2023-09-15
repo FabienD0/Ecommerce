@@ -2,6 +2,10 @@ import { useParams } from "react-router-dom"
 import { useEffect,useState } from "react"
 import { URL } from "../App";
 import styled from "styled-components";
+import { Item } from "../components/utils/types";
+import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
+import { getItems } from "../redux/features/itemsSlice";
+import ItemCardCheckout from "../components/ItemCardCheckout";
 
 interface orderInfo {
     itemId: string;
@@ -14,10 +18,12 @@ interface orderInfo {
 const CheckoutConfirmation = () => {
 
 const [orderInfo, setOrderInfo] = useState<orderInfo[]>([]);
+const [orderItems,setOrderItems] = useState<Item[]>([]);
+
+const { items } = useAppSelector((store) => store.items)
+const dispatch = useAppDispatch();
 
 const {orderId} = useParams();
-
-console.log(orderInfo);
 
 /* Call API for Order items by ID */
 useEffect(() => {
@@ -29,9 +35,36 @@ useEffect(() => {
       .catch((err) => console.log(err));
   }, [orderId]);
 
+    /* Get Latest Items */
+    useEffect(() => {
+    dispatch(getItems())
+    },[]);
+    
+/* Filter items based on orderInfo */
+    useEffect(() => {
+    if (orderInfo.length === 0 && items.length === 0) {
+      return;
+    }
+    const filteredItems: Item[] = [];
+
+    for (let i=0;i<orderInfo.length;i++) {
+        const [filter] = items.filter((item: Item) => item.id === parseInt(orderInfo[i].itemId))
+        filteredItems.push(filter);
+    }    
+    setOrderItems(filteredItems);
+  }, [items, orderInfo]);
+
+
+/* Calculate total price */
+const totalPrice = () => {
+  let total = 0;
+  orderInfo.forEach((order) => total += order.quantity * order.price)
+  return (total + (total * 0.15)).toFixed(2);
+}
+
 
 /* Loading State */
-if(orderInfo.length === 0) {
+if(orderInfo.length === 0 && orderItems.length === 0) {
     return (
         <div>
         <SectionTitle className="mb-3">Latest Products</SectionTitle>
@@ -41,21 +74,25 @@ if(orderInfo.length === 0) {
     </div>
     )
 }
+
 return (
-    <Container>
+    <Container className="container w-100">
       <SectionTitle>Confirmation </SectionTitle>
-      <p>
-        Thank you for your purchase{" "}
-        <span style={{ fontStyle: "italic" }}>{orderInfo[0].itemId}</span>
+      <p className="fw-bold fs-2">
+        Thank you for your purchase 🎉
       </p>
-      <p>
-        We will ship the order to:{" "}
-        <span style={{ fontStyle: "italic" }}>{orderInfo[0].customerId}</span>
-      </p>
-      <p>
+      <p className="fw-bold">
         Order ID:
-        <span style={{ fontStyle: "italic" }}>{orderInfo[0].quantity}</span>
+        <span style={{ fontStyle: "italic" }}> {orderInfo[0].orderId}</span>
       </p>
+      <div className="container d-flex gap-4">
+        {orderItems.map((product) => {
+          return <ItemCardCheckout key={product.id} product={product} />
+        })}
+      </div>
+      <p className="fw-bold mt-2">Price Paid: {totalPrice()}$</p>
+      <p className="fst-italic mt-2">Thank you !</p>
+
     </Container>
 )
 }
