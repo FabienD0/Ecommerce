@@ -31,14 +31,10 @@ useEffect(() => {
       .then((res) => res.json())
       .then((data) => {
         setOrderInfo(data.rows);
+        dispatch(getItems())
       })
       .catch((err) => console.log(err));
   }, [orderId]);
-
-    /* Get Latest Items */
-    useEffect(() => {
-    dispatch(getItems())
-    },[]);
     
 /* Filter items based on orderInfo */
     useEffect(() => {
@@ -48,10 +44,16 @@ useEffect(() => {
     const filteredItems: Item[] = [];
 
     for (let i=0;i<orderInfo.length;i++) {
-        const [filter] = items.filter((item: Item) => item.id === parseInt(orderInfo[i].itemId))
+      const filter = items.find(
+        (item: Item) => item && item.id === parseInt(orderInfo[i].itemId)
+      );
+  
+      if (filter) {
         filteredItems.push(filter);
+      }
     }    
     setOrderItems(filteredItems);
+
   }, [items, orderInfo]);
 
 
@@ -62,9 +64,8 @@ const totalPrice = () => {
   return (total + (total * 0.15)).toFixed(2);
 }
 
-
 /* Loading State */
-if(orderInfo.length === 0 && orderItems.length === 0) {
+if(orderInfo.length === 0 || orderInfo.length !== orderItems.length) {
     return (
         <div>
         <SectionTitle className="mb-3">Latest Products</SectionTitle>
@@ -87,10 +88,10 @@ return (
       </p>
       <div className="container d-flex gap-4">
         {orderItems.map((product) => {
-          return <ItemCardCheckout key={product.id} product={product} />
+          return <ItemCardCheckout key={product.id} product={product}/>
         })}
       </div>
-      <p className="fw-bold mt-2">Price Paid: {totalPrice()}$</p>
+      <p className="fw-bold mt-2 fs-3">Price Paid: {totalPrice()}$</p>
       <p className="fst-italic mt-2">Thank you !</p>
 
     </Container>
@@ -105,7 +106,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 1rem;
   width: 50%;
-  height: 25rem;
+  height: 35rem;
   font-size: 1.3rem;
 `;
 

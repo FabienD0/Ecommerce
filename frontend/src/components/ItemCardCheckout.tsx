@@ -1,9 +1,6 @@
 import { styled } from "styled-components";
 import { colors } from "../assets/colors";
 import { Item } from "./utils/types"
-import {AiOutlineShoppingCart} from "react-icons/ai"
-import { useAppDispatch } from "../redux/app/hooks";
-import { addItem } from "../redux/features/cartSlice"
 
 interface outOfStockProps {
   outofstock: number;
