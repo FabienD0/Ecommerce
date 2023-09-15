@@ -106,7 +106,7 @@ const Header: React.FC<PropsHeader> = ({setIsCart}) => {
                     <NavDropdown.Item href="/categories/Gaming" className='fw-bold my-1'>Gaming</NavDropdown.Item>
                   </NavDropdownStyled>
                   <NavLinkStyled href="/brands" className="mx-2 fw-bold">Brands</NavLinkStyled>
-                  <NavLinkStyled href="/cartMobile" className="mx-2 fw-bold d-lg-none">{`Cart (${getTotalQuantity()})`}</NavLinkStyled>
+                  {getTotalQuantity() > 0 && <NavLinkStyled href="/cartMobile" className="mx-2 fw-bold d-lg-none">{`Cart (${getTotalQuantity()})`}</NavLinkStyled>}
               {/* Searchbar Mobile*/}
               <Form className="d-lg-none my-2 w-100">
               <div style={{position:"relative"}}>

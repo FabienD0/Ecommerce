@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
 import FormData from "../components/FormData";
-import { useState } from "react"
 import { Form } from "react-bootstrap";
 import { modifyQuantity, deleteItem } from "../redux/features/cartSlice"
 import { MdDelete} from "react-icons/md"
 import { ItemCard } from "../components/utils/types"
+import { useNavigate } from "react-router-dom";
+
 
 const Checkout = () => {
 
@@ -13,6 +14,7 @@ const { cartItems } = useAppSelector((store) => store.cart)
 
 
 const dispatch = useAppDispatch();
+const navigate = useNavigate();
 
 /* Update Product Item Quantity */
 const updateItemQuantity = (product: ItemCard, quantity:number) => {
@@ -24,7 +26,6 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
       dispatch(modifyQuantity(payload))
     }
 }
-
     return (
         <Container className="d-flex container m-3" >
         <ContainerItem className="overflow-auto p-3 m-0 w-50">

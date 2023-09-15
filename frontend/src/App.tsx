@@ -15,6 +15,7 @@ import Checkout from "./pages/Checkout"
 import CartMobile from "./pages/CartMobile"
 import CheckoutConfirmation from "./pages/CheckoutConfirmation"
 import PageNotFound from "./pages/PageNotFound"
+import AllProducts from "./pages/AllProducts"
 
 export const URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/" element={<Homepage/>}/>
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/categories/:category" element={<Category />} />
+        <Route path="/products/allProducts" element={<AllProducts />} />
         <Route path="/brands" element={<Brands />} />
         <Route path="/brand/:brandId" element={<BrandsCategory />} />
         <Route path="/cartMobile" element={<CartMobile />} />

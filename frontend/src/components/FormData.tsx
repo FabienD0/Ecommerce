@@ -35,7 +35,6 @@ const FormData = () => {
 
       /* Handle Place Order */
       const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-        console.log(formData)
         e.preventDefault();
         if(formData.expiry.length > 4) {
           setErrorMessage("Expiry date is 4 Numbers (0825)")
@@ -51,7 +50,6 @@ const FormData = () => {
             })
               .then((res) => res.json())
               .then((data) => {
-                console.log(data);
                 if (data.status === 200) {
                   navigate(`/order/${data.orderId}`);
                   dispatch(clearCart());

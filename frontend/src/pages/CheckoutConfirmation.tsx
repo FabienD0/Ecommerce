@@ -68,7 +68,7 @@ const totalPrice = () => {
 if(orderInfo.length === 0 || orderInfo.length !== orderItems.length) {
     return (
         <div>
-        <SectionTitle className="mb-3">Latest Products</SectionTitle>
+        <SectionTitle className="mb-3">Confirmation</SectionTitle>
         <div className="d-flex justify-content-center align-items-center">
         <div className="spinner-border" role="status"></div>
         </div>

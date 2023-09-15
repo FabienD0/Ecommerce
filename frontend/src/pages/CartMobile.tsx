@@ -5,6 +5,8 @@ import { modifyQuantity, deleteItem } from "../redux/features/cartSlice"
 import { MdDelete} from "react-icons/md"
 import { ItemCard } from "../components/utils/types"
 import { colors } from "../assets/colors";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const CartMobile = () => {
 
@@ -12,6 +14,8 @@ const { cartItems,totalAmount } = useAppSelector((store) => store.cart)
 
 
 const dispatch = useAppDispatch();
+
+const navigate = useNavigate();
 
 /* Update Product Item Quantity */
 const updateItemQuantity = (product: ItemCard, quantity:number) => {
@@ -23,6 +27,14 @@ const updateItemQuantity = (product: ItemCard, quantity:number) => {
       dispatch(modifyQuantity(payload))
     }
 }
+
+/* If cart NULL return homepage */
+useEffect(() => {
+  if(cartItems.length === 0){
+    navigate("/")
+  }
+  },[cartItems])
+
 
     return (
         <div className="container">
