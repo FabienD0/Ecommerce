@@ -152,6 +152,8 @@ const getOrderById = async (req: Request, res: Response) => {
   }
 }
 
-    module.exports = {
+
+
+  module.exports = {
         checkoutCart, getOrderById
         };
