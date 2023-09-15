@@ -16,7 +16,7 @@ const {
     getItemsByBrands
 } = require("./itemsHandlers")
 
-const { checkoutCart,getOrderById } = require("./cartHandlers");
+const { checkoutCart,getOrderById } = require("./checkoutHandler");
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
