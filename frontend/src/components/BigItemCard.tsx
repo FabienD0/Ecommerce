@@ -3,7 +3,7 @@ import { colors } from "../assets/colors";
 import { Item } from "./utils/types"
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
+import { useAppDispatch } from "../redux/app/hooks";
 import { addItem } from "../redux/features/cartSlice"
 
 interface outOfStockProps {
@@ -13,10 +13,6 @@ interface outOfStockProps {
 const BigItemCard = ({product}: {product: Item}) => {
 
 const dispatch = useAppDispatch();
-const { cartItems } = useAppSelector((store) => store.cart)
-
-const [existingItem] = cartItems.filter((itemCart) => itemCart.id === product?.id)
-
 
 return (
     <Container className="card product-card px-3 mr-5" style={{width: "95%"}}>

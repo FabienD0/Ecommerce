@@ -2,7 +2,7 @@ import { ItemCard } from "./utils/types"
 import { styled } from "styled-components"
 import { MdDelete} from "react-icons/md"
 import { useAppDispatch } from "../redux/app/hooks"
-import { removeItem, deleteItem } from "../redux/features/cartSlice"
+import { deleteItem } from "../redux/features/cartSlice"
 
 interface itemProps {
 item: ItemCard

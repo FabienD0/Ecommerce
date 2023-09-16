@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import { Item } from "../utils/types"
 import { getItemsByName } from "../../redux/features/itemsSlice";
-import { Link } from "react-router-dom";
 import { Nav, Spinner } from "react-bootstrap";
 import { colors } from "../../assets/colors";
 

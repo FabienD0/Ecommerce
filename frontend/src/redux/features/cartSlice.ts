@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { URL } from "../../App";
+import { createSlice } from "@reduxjs/toolkit"
 import { ItemCard } from "../../components/utils/types";
 
 /* Local Storage Code */

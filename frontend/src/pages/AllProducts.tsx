@@ -1,5 +1,4 @@
 import { Container } from "react-bootstrap"
-import { useParams } from "react-router-dom"
 import { styled } from "styled-components"
 import {useState,useEffect } from "react"
 import { Item } from "../components/utils/types"

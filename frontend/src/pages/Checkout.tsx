@@ -5,7 +5,6 @@ import { Form } from "react-bootstrap";
 import { modifyQuantity, deleteItem } from "../redux/features/cartSlice"
 import { MdDelete} from "react-icons/md"
 import { ItemCard } from "../components/utils/types"
-import { useNavigate } from "react-router-dom";
 
 
 const Checkout = () => {
@@ -14,7 +13,6 @@ const { cartItems } = useAppSelector((store) => store.cart)
 
 
 const dispatch = useAppDispatch();
-const navigate = useNavigate();
 
 /* Update Product Item Quantity */
 const updateItemQuantity = (product: ItemCard, quantity:number) => {

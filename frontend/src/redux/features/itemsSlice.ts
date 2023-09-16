@@ -35,7 +35,7 @@ export const getLatestItems = createAsyncThunk(
 /* Get One Item */
 export const getOneItem = createAsyncThunk(
   '/getOneItem',
-  async (productId: string | undefined, thunkAPI) => {
+  async (productId: string | undefined, _) => {
     const response = await fetch(`${URL}/getOneItem/${productId}`);
     const data = await response.json();
     return data.rows;
@@ -45,7 +45,7 @@ export const getOneItem = createAsyncThunk(
 /* Search Result */
 export const getItemsByName = createAsyncThunk(
   '/getItemsByName',
-  async (name: string | undefined, thunkAPI) => {
+  async (name: string | undefined, _) => {
     const response = await fetch(`${URL}/getItemsByName/${name}`);
     const data = await response.json();
     return data;
@@ -55,7 +55,7 @@ export const getItemsByName = createAsyncThunk(
 /* Get Items by Category */
 export const getItemsByCategory = createAsyncThunk(
   '/getItemsByCategory',
-  async (category: string | undefined, thunkAPI) => {
+  async (category: string | undefined, _) => {
     const response = await fetch(`${URL}/getItemsByCategory/${category}`);
     const data = await response.json();
     return data.rows;
@@ -65,7 +65,7 @@ export const getItemsByCategory = createAsyncThunk(
 /* Get Items by Brands */
 export const getItemsByBrands = createAsyncThunk(
   '/getItemsByBrands',
-  async (brand: string | undefined, thunkAPI) => {
+  async (brand: string | undefined, _) => {
     const response = await fetch(`${URL}/getItemsByBrands/${brand}`);
     const data = await response.json();
     return data.rows;
