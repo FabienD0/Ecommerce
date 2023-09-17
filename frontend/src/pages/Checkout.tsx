@@ -67,6 +67,16 @@ const Container = styled.div`
   }
 `;
 
+const SectionTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2e3659;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+`;
+
+
 const ContainerItem = styled.div`
 border-right: "1px solid lightgray";
 

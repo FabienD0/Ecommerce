@@ -12,7 +12,7 @@ const SectionFourHomePage = () => {
   };
 
   return (
-    <Container>
+    <Container className="container">
       <SectionTitle>Trending Brands</SectionTitle>
       <ContainerBrand>
         <Button onClick={() => handleClick(16384)}>
@@ -66,6 +66,13 @@ export default SectionFourHomePage;
 
 const Container = styled.div`
   height: auto;
+
+  @media (max-width: 620px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -74,7 +81,6 @@ const SectionTitle = styled.h2`
   color: #2e3659;
   letter-spacing: 0.05em;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.2);
-  /* margin-bottom: 2rem; */
 `;
 
 const ContainerBrand = styled.div`
@@ -82,6 +88,10 @@ const ContainerBrand = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0px 1rem;
+
+  @media (max-width: 620px) {
+    justify-content: center;
+  }
 `;
 
 const Button = styled.button`

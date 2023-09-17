@@ -38,6 +38,7 @@ useEffect(() => {
 
     return (
         <div className="container">
+        <SectionTitle className="text-center p-0 m-0 mb-2">Cart</SectionTitle>
         <Container className="d-flex container" >
         <ContainerItem className="overflow-auto p-3 m-0 w-100">
           {cartItems.map((product) => {
@@ -75,6 +76,16 @@ useEffect(() => {
 }
 
 export default CartMobile
+
+const SectionTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2e3659;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+`;
+
 
 const Container = styled.div`
   box-shadow: 2px 2px 15px lightgray;

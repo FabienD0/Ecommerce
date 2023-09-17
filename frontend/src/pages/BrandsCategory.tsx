@@ -49,6 +49,11 @@ const totalPages = Math.ceil(itemsInCategory.length / itemsPerPage);
     }
   };
 
+    /* Scroll top When Change Page */ 
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [currentPage]);
+
 /* Loading */
 if (itemsInCategory?.length === 0) {
     return (  
