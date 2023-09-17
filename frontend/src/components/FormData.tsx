@@ -22,6 +22,7 @@ const FormData = () => {
         cart: cartItems,
       });
       const [errorMessage, setErrorMessage] = useState<string>("");
+      const [isSent,setIsSent] = useState(false);
 
       /* Handle When write on the Form */
       const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +37,7 @@ const FormData = () => {
       /* Handle Place Order */
       const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsSent(true);
         if(formData.expiry.length > 4) {
           setErrorMessage("Expiry date is 4 Numbers (0825)")
         } else {
@@ -54,6 +56,7 @@ const FormData = () => {
                   navigate(`/order/${data.orderId}`);
                   dispatch(clearCart());
                   setErrorMessage("");
+                  setIsSent(false);
                 } else {
                   setErrorMessage(data.message);
                 }
@@ -156,7 +159,7 @@ const FormData = () => {
               </p>
             </div>
           </ContainerPrice>
-          <StyledSubmit disabled={cartItems.length === 0} type="submit">Place Order</StyledSubmit>
+          <StyledSubmit disabled={cartItems.length === 0 || isSent} type="submit">{isSent ? "Placing order...":"Place Order"}</StyledSubmit>
         </StyledForm>
       );
 
